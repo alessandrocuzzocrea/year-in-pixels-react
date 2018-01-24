@@ -40,6 +40,13 @@ class App extends React.Component {
 
   };
 
+  changeDateMoodValue = (date, value) => {
+
+    const newDate = {date: value};
+
+    this.setState({days: {...this.state.days, date: value}} );
+  }
+
   render() {
     return (
       <div className="content">
@@ -56,7 +63,7 @@ class App extends React.Component {
             <MoodGrid days={this.state.days} activeDay={this.state.activeMoodDay} setActiveDay={this.changeActiveMoodDay}/>
           </div>
           <div className="column">
-            <Interface />
+            <Interface changeDateMoodValue={ this.changeDateMoodValue}/>
           </div>
         </div>
         <div id="menu">
