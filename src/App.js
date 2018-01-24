@@ -11,6 +11,35 @@ import Interface from './components/Interface';
 
 class App extends React.Component {
 
+  constructor() {
+    super();
+
+    const today = new Date();
+
+    let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+
+    const days = {};
+
+    // while (currentDay.getFullYear() === today.getFullYear()) {
+    //   days[currentDay.setHours(0,0,0)] = 0;
+    //   let nextDay = new Date(currentDay);
+    //   nextDay.setDate(nextDay.getDate() + 1);
+    //   currentDay = nextDay;
+    // }
+
+    this.state = {
+      activeMoodDay: today.setHours(0,0,0),
+      days: days,
+      
+    }
+  }
+
+  changeActiveMoodDay = (activeMoodDay) => {
+
+    this.setState({activeMoodDay});
+
+  };
+
   render() {
     return (
       <div className="content">
@@ -24,7 +53,7 @@ class App extends React.Component {
         </div>
         <div className="container">
           <div className="column">
-            <MoodGrid />
+            <MoodGrid days={this.state.days} activeDay={this.state.activeMoodDay} setActiveDay={this.changeActiveMoodDay}/>
           </div>
           <div className="column">
             <Interface />
