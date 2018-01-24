@@ -15,7 +15,7 @@ class MoodDay extends React.Component {
  
         
 
-        return <a className={date === activeDay ? "active" : "" } data-mood={ dataMood } onClick={ this.handleClick }></a>
+        return <button className={date === activeDay ? "active" : "" } data-mood={ dataMood } onClick={ this.handleClick }></button>
     }
 }
 

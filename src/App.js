@@ -20,12 +20,12 @@ class App extends React.Component {
 
     const days = {};
 
-    // while (currentDay.getFullYear() === today.getFullYear()) {
-    //   days[currentDay.setHours(0,0,0)] = 0;
-    //   let nextDay = new Date(currentDay);
-    //   nextDay.setDate(nextDay.getDate() + 1);
-    //   currentDay = nextDay;
-    // }
+    while (currentDay.getFullYear() === today.getFullYear()) {
+      days[currentDay.setHours(0,0,0)] = 0;
+      let nextDay = new Date(currentDay);
+      nextDay.setDate(nextDay.getDate() + 1);
+      currentDay = nextDay;
+    }
 
     this.state = {
       activeMoodDay: today.setHours(0,0,0),

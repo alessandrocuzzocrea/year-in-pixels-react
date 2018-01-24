@@ -49,7 +49,7 @@ h1 {
   vertical-align: top;
   margin-right: -1px;
 }
-.item a, .item span {
+.item button, .item span {
   width: 25px;
   height: 25px;
   display: block;
@@ -76,7 +76,7 @@ h1 {
   width: 100%;
 }
 
-.item a.active {
+.item button.active {
   outline: 2px solid #4a4a4a;
   outline-offset: -3px;
 }
