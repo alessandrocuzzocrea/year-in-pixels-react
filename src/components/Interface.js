@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import MoodSelector from './MoodSelector';
 import Chart from './Chart';
+import QuoteOfTheDay from './QuoteOfTheDay';
 
 class Interface extends React.Component {
     
@@ -41,12 +42,8 @@ class Interface extends React.Component {
                         <br />how are you feeling today?</h2>
                 <MoodSelector activeMoodDayValue={this.props.activeMoodDayValue} changeDateMoodValue={ this.props.changeDateMoodValue}/>
                 { this.getMessage(this.props.activeMoodDayValue) }
-                <div id="chart">
-                    <Chart days={this.props.days}/>
-                </div>
-                <div id="quoteOfTheDay">
-                    <p>Loading...</p>
-                </div>
+                <Chart days={this.props.days}/>
+                <QuoteOfTheDay/>
                 <div id="footer">
                     <ul className="menu">
                         <li>

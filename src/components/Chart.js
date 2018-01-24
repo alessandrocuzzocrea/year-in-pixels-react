@@ -62,7 +62,11 @@ class Chart extends React.Component {
 
     const type = 'Line';
 
-    return <ChartistGraph data={data} options={options} type={type} />;
+    return (
+      <div id="chart">
+        <ChartistGraph data={data} options={options} type={type} />
+      </div>
+    );
   }
 }
 
