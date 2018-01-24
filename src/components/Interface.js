@@ -2,21 +2,47 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import MoodSelector from './MoodSelector';
+import Chart from './Chart';
 
 class Interface extends React.Component {
+    
+    getMessage = (value) => {
+
+        switch (value) {
+            case 0:
+                return <div id="message">You have not set a mood today.</div>;
+            break;
+            case 1:
+                return <div id="message">Your day was <u>tough</u>.</div>;
+            break;
+            case 2:
+                return <div id="message">Your day was <u>difficult</u>.</div>;
+            break;
+            case 3:
+                return <div id="message">Your day was <u>average</u>.</div>;
+            break;
+            case 4:
+                return <div id="message">Your day was <u>great</u>.</div>;
+            break;
+            case 5:
+                return <div id="message">Your day was <u>amazing</u>.</div>;
+            break;
+        
+            default:
+                return <div>ERROR</div>
+                break;
+        }
+    };
+    
     render() {
         return (
             <div className="interface">
                 <h2>Hello there,
                         <br />how are you feeling today?</h2>
-                <MoodSelector changeDateMoodValue={ this.props.changeDateMoodValue}/>
-                <div id="message">
-                    <p>
-                        Your day has been
-                            <u>amazing</u>.</p>
-                </div>
+                <MoodSelector activeMoodDayValue={this.props.activeMoodDayValue} changeDateMoodValue={ this.props.changeDateMoodValue}/>
+                { this.getMessage(this.props.activeMoodDayValue) }
                 <div id="chart">
-                    <div className="ct-chart"></div>
+                    <Chart days={this.props.days}/>
                 </div>
                 <div id="quoteOfTheDay">
                     <p>Loading...</p>
@@ -46,7 +72,9 @@ class Interface extends React.Component {
 }
 
 Interface.propTypes = {
+    days: PropTypes.object.isRequired,
     changeDateMoodValue: PropTypes.func.isRequired,
+    activeMoodDayValue: PropTypes.number.isRequired,
 };
 
 export default Interface;

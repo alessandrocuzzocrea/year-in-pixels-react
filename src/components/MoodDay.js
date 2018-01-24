@@ -5,16 +5,12 @@ class MoodDay extends React.Component {
 
     handleClick = () => {
 
-        console.log(new Date(this.props.date));
         this.props.setActiveDay(this.props.date);
     };
 
     render() {
- 
-        const {date, activeDay, dataMood} = this.props;
- 
-        
 
+        const {date, activeDay, dataMood} = this.props;
         return <button className={date === activeDay ? "active" : "" } data-mood={ dataMood } onClick={ this.handleClick }></button>
     }
 }

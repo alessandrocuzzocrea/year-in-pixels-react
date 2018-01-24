@@ -6,21 +6,31 @@ import './MoodSelector.css';
 class MoodSelector extends React.Component {
 
     render() {
+
+        const {activeMoodDayValue} = this.props;
+
+        const moodButtons = 
+            ["none", "tough", "difficult", "average", "great", "amazing"]
+            .map((value, i) => {
+                return (
+                <div key={i} onClick={ () => {this.props.changeDateMoodValue(i)}}>
+                    <input type="radio" id={value} name="dayMood" value={i} className={`mood-${i}`} readOnly checked={activeMoodDayValue === i}/>
+                    <label htmlFor={value}></label>
+                </div>
+                );
+            });
+
         return (
-            <div id="submitMood">
-                <div onClick={() => { this.props.changeDateMoodValue(0) }}><button id="none" className="mood-0" /><label></label></div>
-                <div onClick={() => { this.props.changeDateMoodValue(1) }}><button id="tough" className="mood-1" /><label></label></div>
-                <div onClick={() => { this.props.changeDateMoodValue(2) }}><button id="difficult" className="mood-2" /><label></label></div>
-                <div onClick={() => { this.props.changeDateMoodValue(3) }}><button id="average" className="mood-3" /><label></label></div>
-                <div onClick={() => { this.props.changeDateMoodValue(4) }}><button id="great" className="mood-4" /><label></label></div>
-                <div onClick={() => { this.props.changeDateMoodValue(5) }}><button id="amazing" className="mood-5" /><label></label></div>
-            </div>
-        )
+            <form id="submitMood" action="">
+                { moodButtons }
+            </form>
+        );
     }
 }
 
 MoodSelector.propTypes = {
     changeDateMoodValue: PropTypes.func.isRequired,
+    activeMoodDayValue: PropTypes.number.isRequired,
 };
 
 export default MoodSelector;
