@@ -15,7 +15,7 @@ class Month extends React.Component {
                 <span>{monthNameInitial}</span>
                     { Array(noOfDaysInMonth).fill().map((_, i) => {
 
-                        const date = new Date(year, month, i+1).setHours(0,0,0);
+                        const date = new Date(year, month, i+1).setHours(0,0,0,0);
                         const dataMood = days[date] || 0;
 
                         return <MoodDay key={i} date={date} dataMood={dataMood} activeDay={activeDay} setActiveDay={this.props.setActiveDay} />

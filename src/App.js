@@ -21,14 +21,14 @@ class App extends React.Component {
     const days = {};
 
     while (currentDay.getFullYear() === today.getFullYear()) {
-      days[currentDay.setHours(0,0,0)] = 0;
+      days[currentDay.setHours(0,0,0,0)] = 0;
       let nextDay = new Date(currentDay);
       nextDay.setDate(nextDay.getDate() + 1);
       currentDay = nextDay;
     }
 
     this.state = {
-      activeMoodDay: today.setHours(0,0,0),
+      activeMoodDay: today.setHours(0,0,0,0),
       days: days,
       
     }
@@ -40,12 +40,14 @@ class App extends React.Component {
 
   };
 
-  changeDateMoodValue = (date, value) => {
+  changeDateMoodValue = (value) => {
 
-    const newDate = {date: value};
-
-    this.setState({days: {...this.state.days, date: value}} );
-  }
+    this.setState((prevState) => {
+      const days = {...prevState.days};
+      days[prevState.activeMoodDay] = value;
+      return {days};
+    });
+  };
 
   render() {
     return (

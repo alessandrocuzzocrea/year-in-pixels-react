@@ -1,21 +1,23 @@
-form {
+#submitMood {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
 }
 
-form div {
+#submitMood div {
     display: inline-block;
     margin: 7px;
 }
 
-form div label {
+#submitMood div label {
     height: 100%;
     display: block;
     cursor: pointer;
 }
 
-form input[type=radio] {
+
+/* #submitMood input[type=radio] { */
+#submitMood button {
     border: 0;
     clip: rect(0 0 0 0);
     height: 1px;
@@ -26,14 +28,16 @@ form input[type=radio] {
     width: 1px;
 }
 
-form input[type=radio]~label:before {
+/* #submitMood input[type=radio]~label:before { */
+#submitMood button~label:before {
     font-family: 'IcoFont';
     display: inline-block;
     font-size: 32pt;
     color: #868686;
 }
 
-form input[type=radio]:checked~label:before {
+/* #submitMood input[type=radio]:checked~label:before { */
+#submitMood button:checked~label:before {
     content: inherit;
 }
 

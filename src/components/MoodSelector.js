@@ -4,19 +4,17 @@ import PropTypes from 'prop-types';
 import './MoodSelector.css';
 
 class MoodSelector extends React.Component {
-    
+
     render() {
-
-
         return (
-            <form id="submitMood" action="">
-                <div><input type="radio" id="none" name="dayMood" value="0" className="mood-0" /><label htmlFor="none"></label></div>
-                <div><input type="radio" id="tough" name="dayMood" value="1" className="mood-1" /><label htmlFor="tough"></label></div>
-                <div><input type="radio" id="difficult" name="dayMood" value="2" className="mood-2" /><label htmlFor="difficult"></label></div>
-                <div><input type="radio" id="average" name="dayMood" value="3" className="mood-3" /><label htmlFor="LOLLER"></label></div>
-                <div><input type="radio" id="great" name="dayMood" value="4" className="mood-4" /><label htmlFor="great"></label></div>
-                <div><input type="radio" id="amazing" name="dayMood" value="5" className="mood-5" /><label htmlFor="amazing"></label></div>
-            </form>
+            <div id="submitMood">
+                <div onClick={() => { this.props.changeDateMoodValue(0) }}><button id="none" className="mood-0" /><label></label></div>
+                <div onClick={() => { this.props.changeDateMoodValue(1) }}><button id="tough" className="mood-1" /><label></label></div>
+                <div onClick={() => { this.props.changeDateMoodValue(2) }}><button id="difficult" className="mood-2" /><label></label></div>
+                <div onClick={() => { this.props.changeDateMoodValue(3) }}><button id="average" className="mood-3" /><label></label></div>
+                <div onClick={() => { this.props.changeDateMoodValue(4) }}><button id="great" className="mood-4" /><label></label></div>
+                <div onClick={() => { this.props.changeDateMoodValue(5) }}><button id="amazing" className="mood-5" /><label></label></div>
+            </div>
         )
     }
 }
