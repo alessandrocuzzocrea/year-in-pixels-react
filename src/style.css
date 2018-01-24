@@ -151,7 +151,9 @@ h1 {
   border: 1px solid #a2a2a2;
   padding: 15px;
   outline: 9999px solid rgba(0,0,0,0.5);
-  display: none;
+  /* display: none; */
+  transition: opacity 100ms ease-in-out;  
+  opacity: 0;
 }
 .dialog .close {
   position: absolute;
