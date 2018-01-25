@@ -47,10 +47,10 @@ class Interface extends React.Component {
                 <div id="footer">
                     <ul className="menu">
                         <li>
-                            <a href="#" data-menu="import">Import</a>
+                            <a href="#" data-menu="import" onClick={() =>this.props.openDialog("import")}>Import</a>
                         </li>
                         <li>
-                            <a href="#" data-menu="export">Export</a>
+                            <a href="#" data-menu="export" onClick={() =>this.props.openDialog("import")}>Export</a>
                         </li>
                         <li>
                             <a href="#" data-menu="demo">Demo data</a>
@@ -59,7 +59,7 @@ class Interface extends React.Component {
                             <a href="#" data-menu="clear">Clear data</a>
                         </li>
                         <li>
-                            <a href="#" data-menu="about">About</a>
+                            <a href="#" data-menu="about" onClick={() => this.props.openDialog("about")}>About</a>
                         </li>
                     </ul>
                 </div>
@@ -72,6 +72,9 @@ Interface.propTypes = {
     days: PropTypes.object.isRequired,
     changeDateMoodValue: PropTypes.func.isRequired,
     activeMoodDayValue: PropTypes.number.isRequired,
+    
+    openDialog: PropTypes.func.isRequired,
+    closeDialog: PropTypes.func.isRequired,    
 };
 
 export default Interface;

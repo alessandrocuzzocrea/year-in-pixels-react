@@ -32,10 +32,7 @@ class App extends React.Component {
     this.state = {
       activeMoodDay: today.setHours(0,0,0,0),
       days: days,
-      showImportDialog: false,
-      showExportDialog: false,
-      showAboutDialog: false,
-      
+      openDialog: null,
     }
   }
 
@@ -53,6 +50,15 @@ class App extends React.Component {
       return {days};
     });
   };
+
+  openDialog = (openDialog) => {
+    this.setState({openDialog});
+  }
+
+  closeDialog = () => {
+    const openDialog = null;
+    this.setState({openDialog});  
+  }
 
   render() {
 
@@ -80,15 +86,21 @@ class App extends React.Component {
             <MoodGrid days={this.state.days} activeDay={this.state.activeMoodDay} setActiveDay={this.changeActiveMoodDay}/>
           </div>
           <div className="column">
-            <Interface days={this.state.days} activeMoodDayValue={activeMoodDayValue} changeDateMoodValue={ this.changeDateMoodValue}/>
+            <Interface 
+              days={this.state.days} 
+              activeMoodDayValue={activeMoodDayValue} 
+              changeDateMoodValue={ this.changeDateMoodValue}
+              openDialog={this.openDialog}
+              closeDialog={this.closeDialog}
+            />
           </div>
         </div>
         <div id="menu">
-        <Transition in={this.state.showImportDialog} timeout={duration}>       
+        <Transition in={this.state.openDialog === "import"} timeout={duration}>       
           {(state) => (
           
             <div id="importDialog" className="dialog" style={{...transitionStyles[state]}}>
-              <a href="#" className="close">X</a>
+              <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
               <h3>Import a mood calendar</h3>
               <p>Paste the code copied from the export tool and click the import button.</p>
               <textarea id="importMoodText"></textarea>
@@ -97,11 +109,11 @@ class App extends React.Component {
           )}
         </Transition>
 
-        <Transition in={this.state.showExportDialog} timeout={duration}>       
+        <Transition in={this.state.openDialog === "export"} timeout={duration}>       
           {(state) => (
           
           <div id="exportDialog" className="dialog" style={{...transitionStyles[state]}}>
-            <a href="#" className="close">X</a>
+            <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
             <h3>Export a mood calendar</h3>
             <p>Copy the following text and use the import tool to import it.</p>
             <textarea id="exportMoodText" onClick={() => {/*"this.focus();this.select()"*/ }}
@@ -110,10 +122,10 @@ class App extends React.Component {
           )}
         </Transition>
 
-        <Transition in={this.state.showAboutDialog} timeout={duration}>       
+        <Transition in={this.state.openDialog === "about"} timeout={duration}>       
           {(state) => (
           <div id="aboutDialog" className="dialog" style={{...transitionStyles[state]}}>
-            <a href="#" className="close">X</a>
+            <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
             <h3>Hello there and thank you</h3>
             <p>First of all, thank you for your interest in this little tool.</p>
             <p>This tool was made to keep track of your mood during the entire year, using pixels. You can load this page
