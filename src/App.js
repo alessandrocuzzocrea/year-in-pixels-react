@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Pixels from './components/Pixels';
 import MoodGrid from './components/MoodGrid';
 import Interface from './components/Interface';
+import ImportDialog from './components/ImportDialog';
 import ExportDialog from './components/ExportDialog';
 
 import './reset.css';
@@ -105,6 +106,30 @@ class App extends React.Component {
     this.setState({days});
   }
 
+  importData = (text) => {
+
+    const data = text.split("");
+    const days = {...this.state.days};
+    const daysKeys = Object.keys(days);
+
+    if (data.length === daysKeys.length) {
+
+      daysKeys.map((key, i) => {
+        days[key] = parseInt(data[i], 10) || 0;
+      });
+  
+      if (window.confirm("Careful, this will clear all the current data. Are you sure?")) {
+        this.setState({days});
+        this.closeDialog();
+
+        // window.alert('The import was successful!');
+      }
+
+    } else {
+      window.alert("We're sorry.\nThe data is not valid. Please try again.");
+    }
+  }
+
   render() {
 
     const transitionStyles = {
@@ -146,16 +171,7 @@ class App extends React.Component {
         </div>
         <div id="menu">
         <Transition in={this.state.openDialog === "import"} timeout={duration}>       
-          {(state) => (
-          
-            <div id="importDialog" className="dialog" style={{...transitionStyles[state]}}>
-              <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
-              <h3>Import a mood calendar</h3>
-              <p>Paste the code copied from the export tool and click the import button.</p>
-              <textarea id="importMoodText"></textarea>
-              <button id="importMoodBtn">Import</button>
-            </div>
-          )}
+          {(state) => (<ImportDialog importData={this.importData} closeDialog={this.closeDialog} style={{...transitionStyles[state]}}/>)}
         </Transition>
 
         <Transition in={this.state.openDialog === "export"} timeout={duration}>       
