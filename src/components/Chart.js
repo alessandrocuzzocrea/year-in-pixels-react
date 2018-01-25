@@ -8,8 +8,7 @@ class Chart extends React.Component {
 
     const initialValue = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[]};
 
-    const res0 = Object.keys(days).
-    reduce((acc, val) => {
+    const res0 = Object.keys(days).reduce((acc, val) => {
       const currMonth = new Date(parseInt(val, 10)).getMonth();
       const moodValue = days[val];
       if (moodValue !== 0) acc[currMonth].push(days[val]);
