@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Pixels from './components/Pixels';
 import MoodGrid from './components/MoodGrid';
 import Interface from './components/Interface';
+import ExportDialog from './components/ExportDialog';
 
 import './reset.css';
 import './style.css';
@@ -157,16 +158,7 @@ class App extends React.Component {
         </Transition>
 
         <Transition in={this.state.openDialog === "export"} timeout={duration}>       
-          {(state) => (
-          
-          <div id="exportDialog" className="dialog" style={{...transitionStyles[state]}}>
-            <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
-            <h3>Export a mood calendar</h3>
-            <p>Copy the following text and use the import tool to import it.</p>
-            <textarea id="exportMoodText" onClick={() => {/*"this.focus();this.select()"*/ }}
-              readOnly="readonly"></textarea>
-          </div>
-          )}
+          {(state) => (<ExportDialog days={this.state.days} closeDialog={this.closeDialog} style={{...transitionStyles[state]}}/>)}
         </Transition>
 
         <Transition in={this.state.openDialog === "about"} timeout={duration}>       
