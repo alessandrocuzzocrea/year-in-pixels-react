@@ -53,11 +53,55 @@ class App extends React.Component {
 
   openDialog = (openDialog) => {
     this.setState({openDialog});
-  }
+  };
 
   closeDialog = () => {
     const openDialog = null;
     this.setState({openDialog});  
+  };
+
+  askDemoDataConfirm = () => {
+    if(window.confirm("Careful, this will clear all the current data. Are you sure?")){
+      this.fillDemoData();
+    }
+  };
+
+  fillDemoData = () => {
+
+    const today = new Date();
+    let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const days = {};
+
+    while (currentDay.getFullYear() === today.getFullYear()) {
+      days[currentDay.setHours(0,0,0,0)] = Math.floor(Math.random()*5+1);
+      let nextDay = new Date(currentDay);
+      nextDay.setDate(nextDay.getDate() + 1);
+      currentDay = nextDay;
+    }
+
+    this.setState({days});
+  }
+
+  askClearDataConfirm = () => {
+    if(window.confirm("Careful, this will clear all the current data. Are you sure?")){
+      this.clearData();
+    }
+  };
+
+  clearData = () => {
+
+    const today = new Date();
+    let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const days = {};
+
+    while (currentDay.getFullYear() === today.getFullYear()) {
+      days[currentDay.setHours(0,0,0,0)] = 0;
+      let nextDay = new Date(currentDay);
+      nextDay.setDate(nextDay.getDate() + 1);
+      currentDay = nextDay;
+    }
+
+    this.setState({days});
   }
 
   render() {
@@ -93,6 +137,8 @@ class App extends React.Component {
               changeDateMoodValue={ this.changeDateMoodValue}
               openDialog={this.openDialog}
               closeDialog={this.closeDialog}
+              askDemoDataConfirm={this.askDemoDataConfirm}
+              askClearDataConfirm={this.askClearDataConfirm}
             />
           </div>
         </div>

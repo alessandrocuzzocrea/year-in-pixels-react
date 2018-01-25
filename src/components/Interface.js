@@ -53,10 +53,10 @@ class Interface extends React.Component {
                             <a href="#" data-menu="export" onClick={() =>this.props.openDialog("export")}>Export</a>
                         </li>
                         <li>
-                            <a href="#" data-menu="demo">Demo data</a>
+                            <a href="#" data-menu="demo" onClick={() => this.props.askDemoDataConfirm()}>Demo data</a>
                         </li>
                         <li>
-                            <a href="#" data-menu="clear">Clear data</a>
+                            <a href="#" data-menu="clear" onClick={() => this.props.askClearDataConfirm()}>Clear data</a>
                         </li>
                         <li>
                             <a href="#" data-menu="about" onClick={() => this.props.openDialog("about")}>About</a>
