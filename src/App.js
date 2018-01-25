@@ -108,9 +108,10 @@ class App extends React.Component {
   render() {
 
     const transitionStyles = {
-      entering: { opacity: 0, "display":"block"},
-      entered: { opacity: 1, "display":"block" },
-      exited: { opacity: 0, "display":"none" },
+      entering: { opacity: 0, display:"block"},
+      entered:  { opacity: 1, display:"block"},
+      exiting:  { opacity: 0, display:"block"},
+      exited:   { opacity: 0, display:"none" },
     };
 
     const duration = 100;
