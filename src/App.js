@@ -18,16 +18,19 @@ class App extends React.Component {
     super();
 
     const today = new Date();
-
     let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+    let days = this.loadState();
 
-    const days = {};
+    if (!days) {
 
-    while (currentDay.getFullYear() === today.getFullYear()) {
-      days[currentDay.setHours(0, 0, 0, 0)] = 0;
-      let nextDay = new Date(currentDay);
-      nextDay.setDate(nextDay.getDate() + 1);
-      currentDay = nextDay;
+      days = {};
+
+      while (currentDay.getFullYear() === today.getFullYear()) {
+        days[currentDay.setHours(0, 0, 0, 0)] = 0;
+        let nextDay = new Date(currentDay);
+        nextDay.setDate(nextDay.getDate() + 1);
+        currentDay = nextDay;
+      }
     }
 
     this.state = {
@@ -35,6 +38,10 @@ class App extends React.Component {
       days: days,
       openDialog: null,
     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.saveState(prevState.days);
   }
 
   changeActiveMoodDay = (activeMoodDay) => {
@@ -125,6 +132,21 @@ class App extends React.Component {
 
     } else {
       window.alert("We're sorry.\nThe data is not valid. Please try again.");
+    }
+  }
+
+  saveState = (days) => {
+    localStorage.setItem('moodCalendar', JSON.stringify(days));
+  }
+
+  loadState = () => {
+    const days = localStorage.getItem('moodCalendar');
+    if (days) {
+      try {
+        return JSON.parse(days);
+      } catch(e) {
+        return null;
+      }
     }
   }
 
