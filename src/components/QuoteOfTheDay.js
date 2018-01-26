@@ -11,20 +11,24 @@ class QuoteOfTheDay extends React.Component {
     }
 
     componentWillMount()  {
+        
         fetch("https://quotes.rest/qod")
             .then(res => {
-            
+                return res.json().then(data => {
                 if (res.ok) {
-                    return res.json().then(data => {
-                        const quote = data['contents']['quotes'][0]; 
-                        this.setState({quote});
-                    });
+                    return data;
                 } else {
-                    return res.json().then(() => {
-                        const quote = {quote: "GET https://quotes.rest/qod 429 (Too Many Requests)", author:"quotes.rest"};
-                        this.setState({quote});
-                    });
-                };
+                    return Promise.reject({status: res.status, data});
+                }
+                });
+            })
+            .then(data => {
+                const quote = data['contents']['quotes'][0]; 
+                this.setState({quote});
+            })
+            .catch(err => {
+                const quote = {quote: "GET https://quotes.rest/qod 429 (Too Many Requests)", author:"quotes.rest"};
+                this.setState({quote});
             });
     }
 
