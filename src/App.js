@@ -106,9 +106,8 @@ class App extends React.Component {
     this.setState({days});
   }
 
-  importData = (text) => {
+  importData = (data) => {
 
-    const data = text.split("");
     const days = {...this.state.days};
     const daysKeys = Object.keys(days);
 
@@ -170,15 +169,15 @@ class App extends React.Component {
           </div>
         </div>
         <div id="menu">
-        <Transition in={this.state.openDialog === "import"} timeout={duration}>       
+        <Transition in={this.state.openDialog === "import"} timeout={duration} mountOnEnter unmountOnExit>       
           {(state) => (<ImportDialog importData={this.importData} closeDialog={this.closeDialog} style={{...transitionStyles[state]}}/>)}
         </Transition>
 
-        <Transition in={this.state.openDialog === "export"} timeout={duration}>       
+        <Transition in={this.state.openDialog === "export"} timeout={duration} mountOnEnter unmountOnExit>       
           {(state) => (<ExportDialog days={this.state.days} closeDialog={this.closeDialog} style={{...transitionStyles[state]}}/>)}
         </Transition>
 
-        <Transition in={this.state.openDialog === "about"} timeout={duration}>       
+        <Transition in={this.state.openDialog === "about"} timeout={duration} mountOnEnter unmountOnExit>       
           {(state) => (
           <div id="aboutDialog" className="dialog" style={{...transitionStyles[state]}}>
             <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>

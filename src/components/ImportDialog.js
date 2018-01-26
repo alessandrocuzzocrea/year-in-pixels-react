@@ -3,6 +3,23 @@ import PropTypes from 'prop-types';
 
 class ImportDialog extends React.Component {
 
+    // checkImportString = (val) => {
+
+    //     if (val && val.match("^[0-9]+$")) return true;
+
+    //     return false;
+    // };
+
+    // handleImportButtonClick = () => {
+    //     const textAreaValue = this.textArea.value;
+
+    //     if (this.checkImportString(textAreaValue)) {
+
+    //         const data = textAreaValue.split("");
+    //         this.props.importData(data);
+    //     }
+    // };
+
     render() {
 
         return (
