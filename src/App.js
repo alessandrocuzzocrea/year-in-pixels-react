@@ -10,7 +10,6 @@ import ExportDialog from './components/ExportDialog';
 
 import './reset.css';
 import './style.css';
-import './App.css';
 
 
 class App extends React.Component {
