@@ -202,18 +202,12 @@ class App extends React.Component {
             {(state) => (
               <div id="aboutDialog" className="dialog" style={{ ...transitionStyles[state] }}>
                 <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
-                <h3>Hello there and thank you</h3>
-                <p>First of all, thank you for your interest in this little tool.</p>
-                <p>This tool was made to keep track of your mood during the entire year, using pixels. You can load this page
-                    every day and select how you're feeling. The tool will keep track of your mood and give you a visual
-                    for how you've felt during the year.</p>
-                <p>If you use different browsers or computers, you can import/export your calendar too.</p>
-                <p>While the idea for this tool is not new at all, I've never seen this format online before. I hope you enjoy
-                    it.</p>
-                <h3>About the author</h3>
-                <p>My name is Alejandro AR (
-                    <a href="http://kinduff.com">@kinduff</a>) and I enjoy making little tools that help people out.</p>
-                <p>Thanks for passing by.</p>
+                <h3>year-in-pixels-react</h3>
+                <p>Remixed by <a href="https://twitter.com/alcuzzocrea" target="_blank">@alcuzzocrea</a></p>
+                <p>This is a complete React porting of <a href="https://year-in-pixels.glitch.me/" target="_blank">Year in Pixel</a></p>
+                <p><a href="https://github.com/alessandrocuzzocrea/year-in-pixels-react" target="_blank">Github</a></p>                
+                <h4>Original App by:</h4>
+                <p>Alejandro AR (<a href="http://kinduff.com" target="_blank">@kinduff</a>)</p>
               </div>
             )}
 
