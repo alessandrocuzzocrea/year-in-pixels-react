@@ -15,6 +15,9 @@ import localStorage from 'mock-local-storage'
 import { request } from 'https';
 window.localStorage = global.localStorage
 
+import moodCalendarMockData from '../fixtures/moodCalendarMockData';
+
+
 describe('<App />', () => {
 
     beforeEach(() => {
@@ -30,7 +33,7 @@ describe('<App />', () => {
         const wrapper = shallow(<App />);
         expect(wrapper.state().activeMoodDay).toBe(todayDate);
     });
-    
+
     it('change active day on click', () => {
         const wrapper = mount(<App />);
         {
@@ -44,4 +47,11 @@ describe('<App />', () => {
             expect(wrapper.state().activeMoodDay).toBe(moodDay.props().date);
         };
     });
+
+    it('saves data to localStorage', () => {
+        const wrapper = mount(<App />);
+        wrapper.setState({days: moodCalendarMockData});
+        expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(moodCalendarMockData);
+    });
+
 });
