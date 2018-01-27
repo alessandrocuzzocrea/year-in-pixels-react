@@ -48,6 +48,17 @@ describe('<App />', () => {
         };
     });
 
+    it ('change active day mood value', () => {
+        const wrapper = mount(<App />);
+        const { activeMoodDay } = wrapper.state();
+        const moodSelector = wrapper.find('MoodSelector');
+        
+        [5, 4, 3, 2, 1, 0].map((value) =>{
+            moodSelector.find('div').at(value).simulate('click');
+            expect(wrapper.state().days[activeMoodDay]).toEqual(value);
+        });
+    });
+
     it('saves data to localStorage', () => {
         const wrapper = mount(<App />);
         wrapper.setState({days: moodCalendarMockData});
