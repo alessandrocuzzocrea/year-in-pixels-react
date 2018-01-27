@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { daysInMonth } from '../helpers';
 
 import MoodDay from './MoodDay'
 
@@ -8,7 +9,7 @@ class Month extends React.Component {
     render(){
 
         const {month, year, monthNameInitial, days, activeDay} = this.props;
-        const noOfDaysInMonth = (new Date(year, month+1, 0).getDate());
+        const noOfDaysInMonth = daysInMonth(year, month);
 
         return (
             <div data-month={monthNameInitial} className="item month">
