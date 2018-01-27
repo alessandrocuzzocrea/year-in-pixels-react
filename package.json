@@ -13,10 +13,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "coverage": "react-scripts test --env=jsdom --coverage",
+    "coveralls": "./node_modules/coveralls/bin/coveralls.js < coverage/lcov.info",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
     "chartist": "^0.10.1",
+    "coveralls": "^3.0.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "fetch-mock": "^6.0.0",
