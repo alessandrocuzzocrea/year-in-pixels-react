@@ -7,15 +7,15 @@ import MoodGrid from './components/MoodGrid';
 import Interface from './components/Interface';
 import ImportDialog from './components/ImportDialog';
 import ExportDialog from './components/ExportDialog';
+import AboutDialog from './components/AboutDialog';
 
 import './reset.css';
 import './style.css';
 
-
 class App extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     const today = new Date();
     let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
@@ -144,13 +144,15 @@ class App extends React.Component {
     if (days) {
       try {
         return JSON.parse(days);
-      } catch(e) {
+      } catch (e) {
         return null;
       }
     }
   }
 
   render() {
+
+    const { enableAnimations } = this.props;
 
     const transitionStyles = {
       entering: { opacity: 0, display: "block" },
@@ -190,33 +192,58 @@ class App extends React.Component {
           </div>
         </div>
         <div id="menu">
-          <Transition in={this.state.openDialog === "import"} timeout={duration} mountOnEnter unmountOnExit>
-            {(state) => (<ImportDialog importData={this.importData} closeDialog={this.closeDialog} style={{ ...transitionStyles[state] }} />)}
-          </Transition>
-
-          <Transition in={this.state.openDialog === "export"} timeout={duration} mountOnEnter unmountOnExit>
-            {(state) => (<ExportDialog days={this.state.days} closeDialog={this.closeDialog} style={{ ...transitionStyles[state] }} />)}
-          </Transition>
-
-          <Transition in={this.state.openDialog === "about"} timeout={duration} mountOnEnter unmountOnExit>
+          <Transition
+            in={this.state.openDialog === "import"}
+            timeout={duration}
+            mountOnEnter
+            unmountOnExit
+            enter={enableAnimations}
+            exit={enableAnimations}
+          >
             {(state) => (
-              <div id="aboutDialog" className="dialog" style={{ ...transitionStyles[state] }}>
-                <a href="#" className="close" onClick={() => this.closeDialog()}>X</a>
-                <h3>year-in-pixels-react</h3>
-                <p>Remixed by <a href="https://twitter.com/alcuzzocrea" target="_blank">@alcuzzocrea</a></p>
-                <p>This is a complete React porting of <a href="https://year-in-pixels.glitch.me/" target="_blank">Year in Pixel</a></p>
-                <p><a href="https://github.com/alessandrocuzzocrea/year-in-pixels-react" target="_blank">Github</a></p>                
-                <h4>Original App by:</h4>
-                <p>Alejandro AR (<a href="http://kinduff.com" target="_blank">@kinduff</a>)</p>
-              </div>
-            )}
-
+              <ImportDialog
+                importData={this.importData}
+                closeDialog={this.closeDialog}
+                style={{ ...transitionStyles[state] }}
+              />)}
           </Transition>
-
+          <Transition 
+            in={this.state.openDialog === "export"} 
+            timeout={duration} 
+            mountOnEnter 
+            unmountOnExit 
+            enter={enableAnimations}
+            exit={enableAnimations}
+          >
+            {(state) => (
+              <ExportDialog 
+                days={this.state.days} 
+                closeDialog={this.closeDialog} 
+                style={{ ...transitionStyles[state] }} 
+              />)}
+          </Transition>
+          <Transition 
+            in={this.state.openDialog === "about"} 
+            timeout={duration} 
+            mountOnEnter 
+            unmountOnExit 
+            enter={enableAnimations}
+            exit={enableAnimations}
+          >
+            {(state) => (
+              <AboutDialog 
+                closeDialog={this.closeDialog} 
+                style={{ ...transitionStyles[state] 
+              }}/>)}
+          </Transition>
         </div>
       </div>
     );
   }
 }
+
+App.defaultProps = {
+  enableAnimations: true
+};
 
 export default App;

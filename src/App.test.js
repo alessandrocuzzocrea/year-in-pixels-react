@@ -81,4 +81,54 @@ describe('<App />', () => {
         expect(wrapper.instance().loadState()).toEqual(null);        
     });
 
+    it('has no dialog open on start', () => {
+        const wrapper = mount(<App />);
+        expect(wrapper.find('ImportDialog').length).toEqual(0);
+        expect(wrapper.find('ExportDialog').length).toEqual(0);
+        expect(wrapper.find('AboutDialog').length).toEqual(0);
+    });
+
+    it('opens dialogs', () => {
+        const wrapper = mount(<App />);
+
+        const importLink = wrapper.find('[data-menu="import"]');
+        importLink.simulate('click');
+        expect(wrapper.find('ImportDialog').length).toEqual(1);
+
+        const exportLink = wrapper.find('[data-menu="export"]');
+        exportLink.simulate('click');
+        expect(wrapper.find('ExportDialog').length).toEqual(1);
+
+        const aboutLink = wrapper.find('[data-menu="about"]');
+        aboutLink.simulate('click');
+        expect(wrapper.find('AboutDialog').length).toEqual(1);
+    });
+
+    it('closes dialogs', () => {
+        const wrapper = mount(<App enableAnimations={false} />);
+
+        const importLink = wrapper.find('[data-menu="import"]');
+        importLink.simulate('click');
+        const importDialogCloseButton = wrapper.find('ImportDialog .dialog .close');
+        importDialogCloseButton.simulate('click');
+        expect(wrapper.find('ImportDialog').length).toEqual(0);
+
+        const exportLink = wrapper.find('[data-menu="export"]');
+        exportLink.simulate('click');
+        const exportDialogCloseButton = wrapper.find('ExportDialog .dialog .close');
+        exportDialogCloseButton.simulate('click');
+        expect(wrapper.find('ExportDialog').length).toEqual(0);
+
+        const aboutLink = wrapper.find('[data-menu="about"]');
+        aboutLink.simulate('click');
+        const aboutDialogCloseButton = wrapper.find('AboutDialog .dialog .close');
+        aboutDialogCloseButton.simulate('click');
+        expect(wrapper.find('AboutDialog').length).toEqual(0);
+
+    });
+
+    // it('number of MoodDay is correct', () => {
+    //     fail('test not implemented');
+    // });
+
 });
