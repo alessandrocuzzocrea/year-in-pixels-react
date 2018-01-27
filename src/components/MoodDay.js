@@ -1,19 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class MoodDay extends React.Component {
-
-    handleClick = () => {
-
-        this.props.setActiveDay(this.props.date);
-    };
-
-    render() {
-
-        const {date, activeDay, dataMood} = this.props;
-        return <button className={date === activeDay ? "active" : "" } data-mood={ dataMood } onClick={ this.handleClick }></button>
-    }
-}
+const MoodDay = (props) => {
+        const { date, activeDay, dataMood } = props;
+        return <button
+            className={date === activeDay ? "active" : ""}
+            data-mood={dataMood}
+            onClick={() => { props.setActiveDay(props.date) }}>
+        </button>
+};
 
 MoodDay.propTypes = {
     date: PropTypes.number.isRequired,
@@ -21,6 +16,6 @@ MoodDay.propTypes = {
     dataMood: PropTypes.number.isRequired,
     activeDay: PropTypes.number.isRequired,
     setActiveDay: PropTypes.func.isRequired,
-}
+};
 
 export default MoodDay;
