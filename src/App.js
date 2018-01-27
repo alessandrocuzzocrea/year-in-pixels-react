@@ -41,7 +41,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.saveState(prevState.days);
+    this.saveState(this.state.days);
   }
 
   changeActiveMoodDay = (activeMoodDay) => {
