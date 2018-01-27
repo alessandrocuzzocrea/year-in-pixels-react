@@ -19,4 +19,10 @@ describe('<App />', () => {
     it('renders without crashing', () => {
         const wrapper = shallow(<App />);
     });
+
+    it('starts with current date as active day', () => {
+        const todayDate = new Date().setHours(0, 0, 0, 0);
+        const wrapper = shallow(<App />);
+        expect(wrapper.state().activeMoodDay).toBe(todayDate);
+    });
 });
