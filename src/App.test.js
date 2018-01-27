@@ -59,4 +59,15 @@ describe('<App />', () => {
         const wrapper = mount(<App />);
         expect(wrapper.state().days).toEqual(moodCalendarMockData);
     });
+
+    it('loadState must return null if JSON.parse throw an error', () => {
+        const wrapper = mount(<App />);
+
+        window.localStorage.setItem('moodCalendar', null);
+        expect(wrapper.instance().loadState()).toEqual(null);
+
+        window.localStorage.setItem('moodCalendar', 'random_garbage');
+        expect(wrapper.instance().loadState()).toEqual(null);        
+    });
+
 });
