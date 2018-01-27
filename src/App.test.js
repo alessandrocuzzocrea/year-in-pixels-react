@@ -25,4 +25,18 @@ describe('<App />', () => {
         const wrapper = shallow(<App />);
         expect(wrapper.state().activeMoodDay).toBe(todayDate);
     });
+    
+    it('change active day on click', () => {
+        const wrapper = mount(<App />);
+        {
+            const moodDay = wrapper.find('MoodDay').at(0);
+            moodDay.find('button').simulate('click');
+            expect(wrapper.state().activeMoodDay).toBe(moodDay.props().date);
+        };
+        {
+            const moodDay = wrapper.find('MoodDay').at(1);
+            moodDay.find('button').simulate('click');
+            expect(wrapper.state().activeMoodDay).toBe(moodDay.props().date);
+        };
+    });
 });
