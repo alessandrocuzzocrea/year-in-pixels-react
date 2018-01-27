@@ -54,4 +54,9 @@ describe('<App />', () => {
         expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(moodCalendarMockData);
     });
 
+    it('load data from localStorage', () => {
+        window.localStorage.setItem('moodCalendar', JSON.stringify(moodCalendarMockData));
+        const wrapper = mount(<App />);
+        expect(wrapper.state().days).toEqual(moodCalendarMockData);
+    });
 });
