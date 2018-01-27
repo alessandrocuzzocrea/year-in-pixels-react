@@ -16,6 +16,11 @@ import { request } from 'https';
 window.localStorage = global.localStorage
 
 describe('<App />', () => {
+
+    beforeEach(() => {
+        window.localStorage.clear();
+    });
+
     it('renders without crashing', () => {
         const wrapper = shallow(<App />);
     });
