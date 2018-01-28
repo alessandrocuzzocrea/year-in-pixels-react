@@ -15,7 +15,7 @@ import localStorage from 'mock-local-storage'
 import { request } from 'https';
 window.localStorage = global.localStorage
 
-import moodCalendarMockData from '../fixtures/moodCalendarMockData';
+import {days} from '../fixtures/moodCalendarMockData';
 
 
 describe('<App />', () => {
@@ -61,14 +61,14 @@ describe('<App />', () => {
 
     it('saves data to localStorage', () => {
         const wrapper = mount(<App />);
-        wrapper.setState({days: moodCalendarMockData});
-        expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(moodCalendarMockData);
+        wrapper.setState({days: days});
+        expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(days);
     });
 
     it('load data from localStorage', () => {
-        window.localStorage.setItem('moodCalendar', JSON.stringify(moodCalendarMockData));
+        window.localStorage.setItem('moodCalendar', JSON.stringify(days));
         const wrapper = mount(<App />);
-        expect(wrapper.state().days).toEqual(moodCalendarMockData);
+        expect(wrapper.state().days).toEqual(days);
     });
 
     it('loadState must return null if JSON.parse throw an error', () => {
