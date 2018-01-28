@@ -2,31 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ChartistGraph from 'react-chartist';
 
+import { dayToMonth } from '../helpers';
+
 class Chart extends React.Component {
-  
+
   getMonthMoodAvgArr = (days) => {
 
-    const initialValue = {0:[], 1:[], 2:[], 3:[], 4:[], 5:[], 6:[], 7:[], 8:[], 9:[], 10:[], 11:[]};
+    const initialValue = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [] };
 
     const res0 = Object.keys(days).reduce((acc, val) => {
-      const currMonth = new Date(parseInt(val, 10)).getMonth();
+      const currMonth = dayToMonth(parseInt(val, 10));
       const moodValue = days[val];
       if (moodValue !== 0) acc[currMonth].push(days[val]);
       return acc;
     }, initialValue);
-    const res1 = Object.keys(res0).map((val) =>{
+    const res1 = Object.keys(res0).map((val) => {
       return res0[val];
     });
     const res2 = res1.map(array => {
-      return array.reduce(function(acc, val) { return acc + val; }, 0) / array.length || 0;
+      return array.reduce(function (acc, val) { return acc + val; }, 0) / array.length || 0;
     });
 
     return res2;
   }
-  
+
   render() {
 
-    const {days} = this.props;
+    const { days } = this.props;
 
     const moodOptions = ["none", "tough", "difficult", "average", "great", "amazing"];
 
@@ -38,7 +40,7 @@ class Chart extends React.Component {
     const options = {
       axisY: {
         onlyInteger: true,
-        labelInterpolationFnc: function(value, index) {
+        labelInterpolationFnc: function (value, index) {
           return moodOptions[index];
         },
         stretch: true,

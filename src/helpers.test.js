@@ -1,18 +1,22 @@
 import mockdate from 'mockdate';
 
-import { daysInYear, daysInMonth, dayIndex, currDayIndex } from './helpers';
+import { daysInYear, daysInMonth, dayIndex, currDayIndex, dayToMonth } from './helpers';
 
-describe('helpers', () => {
+describe('daysInYear', () => {
 
-    it('return 365 if regular year', () => {
+    it('returns 365 if regular year', () => {
         expect(daysInYear(2018)).toEqual(365);
     });
 
-    it('return 366 if leap year', () => {
+    it('returns 366 if leap year', () => {
         expect(daysInYear(2020)).toEqual(366);
     });
 
-    it('return the right number of days', () => {
+});
+
+describe('daysInMonth', () => {
+
+    it('returns the right number of days', () => {
 
         expect(daysInMonth(2018, 1)).toEqual(28);
         expect(daysInMonth(2018, 2)).toEqual(31);
@@ -27,17 +31,21 @@ describe('helpers', () => {
         expect(daysInMonth(2018, 11)).toEqual(31);
     });
 
-    it('return the right day index', () => {
+});
+
+describe('dayIndex', () => {
+
+    it('returns the right day index', () => {
 
         let nextYear = new Date(2019, 0, 1);
         let i = 0;
         for (let d = new Date(2018, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
             expect(dayIndex(d.getFullYear(), d.getMonth(), d.getDate())).toEqual(i);
             i++;
-        }
+        };
     });
 
-    it('return the current day index', () => {
+    it('returns the current day index', () => {
 
         mockdate.set('2018/1/1');
         expect(currDayIndex()).toEqual(0);
@@ -48,4 +56,18 @@ describe('helpers', () => {
         mockdate.set('2018/1/3');
         expect(currDayIndex()).not.toEqual(1);
     });
+});
+
+describe('dayToMonth', () => {
+
+    it('returns the current month', () => {
+        let nextYear = new Date(2019, 0, 1);
+        let i = 0;
+        for (let d = new Date(2018, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
+            const day = dayIndex(d.getFullYear(), d.getMonth(), d.getDate());
+            expect(dayToMonth(day)).toEqual(d.getMonth());
+            i++;
+        };
+    });
+
 });

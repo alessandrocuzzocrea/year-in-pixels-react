@@ -12,10 +12,21 @@ export function daysInMonth(year, month) {
 
 export function dayIndex(year, month, day) {
     return Math.ceil((new Date(year, month, day) - new Date(year, 0, 1)) / 86400000);
-}
+};
 
 export function currDayIndex() {
     const date = new Date();
     return dayIndex(date.getFullYear(), date.getMonth(), date.getDate());
-}
+};
 
+export function dayToMonth(day) {
+
+    let nextYear = new Date(2019, 0, 1);
+    let i = 0;
+    for (let d = new Date(2018, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
+        if (day === dayIndex(d.getFullYear(), d.getMonth(), d.getDate())) {
+            return d.getMonth();
+        };
+        i++;
+    };
+};
