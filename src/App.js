@@ -106,14 +106,17 @@ class App extends React.Component {
 
   importData = (data) => {
 
-    const days = { ...this.state.days };
-    const daysKeys = Object.keys(days);
+    const currYear = new Date().getFullYear();
+    const currYearDays = daysInYear(currYear);
 
-    if (data.length === daysKeys.length) {
+    if (data.length === currYearDays) {
 
-      daysKeys.map((key, i) => {
-        days[key] = parseInt(data[i], 10) || 0;
-      });
+      const days = {};
+      Array(currYearDays)
+        .fill(0)
+        .forEach((_, i) => {
+          days[i] = parseInt(data[i], 10) || 0;
+        });
 
       if (window.confirm("Careful, this will clear all the current data. Are you sure?")) {
         this.setState({ days });

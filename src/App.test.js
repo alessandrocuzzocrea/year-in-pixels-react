@@ -18,7 +18,7 @@ window.localStorage = global.localStorage;
 import mockdate from 'mockdate';
 
 import { currDayIndex } from './helpers';
-import { days, daysInitialState, daysFillData } from '../fixtures/moodCalendarMockData';
+import { days, daysInitialState, daysFillData, daysString } from '../fixtures/moodCalendarMockData';
 
 beforeEach(() => {
     window.localStorage.clear();
@@ -58,7 +58,7 @@ describe('<App />', () => {
         mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         wrapper.instance().changeDateMoodValue(5);
-        const {days, activeMoodDay} = wrapper.state()
+        const { days, activeMoodDay } = wrapper.state()
         expect(days[activeMoodDay]).toEqual(5);
     });
 
@@ -123,7 +123,22 @@ describe('dialogs', () => {
         const aboutDialogCloseButton = wrapper.find('AboutDialog .dialog .close');
         aboutDialogCloseButton.simulate('click');
         expect(wrapper.find('AboutDialog').length).toEqual(0);
+    });
 
+    it('import days from string', () => {
+        global.confirm = jest.fn().mockReturnValue(true);
+        const wrapper = mount(<App enableAnimations={false} />);
+
+        const importLink = wrapper.find('[data-menu="import"]');
+        importLink.simulate('click');
+
+        const importDialogTextArea = wrapper.find('ImportDialog textarea');
+        importDialogTextArea.instance().value = daysString;
+
+        const importDialogOkButton = wrapper.find('ImportDialog button');
+        importDialogOkButton.simulate('click');
+
+        expect(wrapper.state().days).toEqual(days);
     });
 });
 
