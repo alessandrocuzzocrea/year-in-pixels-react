@@ -74,7 +74,7 @@ class App extends React.Component {
 
   fillDemoData = () => {
 
-    const currYear = new Date().getFullYear();    
+    const currYear = new Date().getFullYear();
     const days = {};
     Array(daysInYear(currYear))
       .fill(0)
@@ -93,7 +93,7 @@ class App extends React.Component {
 
   clearData = () => {
 
-    const currYear = new Date().getFullYear();    
+    const currYear = new Date().getFullYear();
     const days = {};
     Array(daysInYear(currYear))
       .fill(0)
