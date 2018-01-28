@@ -19,11 +19,15 @@ export function currDayIndex() {
     return dayIndex(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
+export function currYear() {
+    return new Date().getFullYear();
+};
+
 export function dayToMonth(day) {
 
-    let nextYear = new Date(2019, 0, 1);
+    const nextYear = new Date(currYear() + 1, 0, 1);
     let i = 0;
-    for (let d = new Date(2018, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
+    for (let d = new Date(currYear(), 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
         if (day === dayIndex(d.getFullYear(), d.getMonth(), d.getDate())) {
             return d.getMonth();
         };

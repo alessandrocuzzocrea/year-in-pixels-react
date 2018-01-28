@@ -1,6 +1,13 @@
 import mockdate from 'mockdate';
 
-import { daysInYear, daysInMonth, dayIndex, currDayIndex, dayToMonth } from './helpers';
+import {
+    daysInYear,
+    daysInMonth,
+    dayIndex,
+    currDayIndex,
+    currYear,
+    dayToMonth,
+} from './helpers';
 
 describe('daysInYear', () => {
 
@@ -58,16 +65,39 @@ describe('dayIndex', () => {
     });
 });
 
+describe('currYear', () => {
+    it('returns the current year', () => {
+
+        mockdate.set('2018/1/1');
+        expect(currYear()).toEqual(2018);
+
+        mockdate.set('2019/1/2');
+        expect(currYear()).toEqual(2019);
+
+        mockdate.set('2020/1/3');
+        expect(currYear()).toEqual(2020);
+    });
+});
+
 describe('dayToMonth', () => {
 
     it('returns the current month', () => {
-        let nextYear = new Date(2019, 0, 1);
-        let i = 0;
-        for (let d = new Date(2018, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
-            const day = dayIndex(d.getFullYear(), d.getMonth(), d.getDate());
-            expect(dayToMonth(day)).toEqual(d.getMonth());
-            i++;
-        };
-    });
 
+        [
+            '2018',
+            '2019',
+            '2020'
+        ]
+            .forEach(v => {
+
+                mockdate.set(`${v}/1/1`);
+                const nextYear = new Date(currYear() + 1, 0, 1);
+                let i = 0;
+                for (let d = new Date(currYear(), 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
+                    const day = dayIndex(d.getFullYear(), d.getMonth(), d.getDate());
+                    expect(dayToMonth(day)).toEqual(d.getMonth());
+                    i++;
+                };
+            });
+    });
 });
