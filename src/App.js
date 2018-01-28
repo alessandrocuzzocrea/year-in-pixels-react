@@ -1,6 +1,8 @@
 import React from 'react';
 import { Transition } from 'react-transition-group'
 
+import { daysInYear, currDayIndex } from './helpers'
+
 import Header from './components/Header';
 import Pixels from './components/Pixels';
 import MoodGrid from './components/MoodGrid';
@@ -17,24 +19,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const today = new Date();
-    let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const currYear = new Date().getFullYear();
+
     let days = this.loadState();
-
     if (!days) {
-
       days = {};
-
-      while (currentDay.getFullYear() === today.getFullYear()) {
-        days[currentDay.setHours(0, 0, 0, 0)] = 0;
-        let nextDay = new Date(currentDay);
-        nextDay.setDate(nextDay.getDate() + 1);
-        currentDay = nextDay;
-      }
-    }
+      Array(daysInYear(currYear))
+        .fill(0)
+        .forEach((v, i) => {
+          days[i] = v;
+        });
+    };
 
     this.state = {
-      activeMoodDay: today.setHours(0, 0, 0, 0),
+      activeMoodDay: currDayIndex(),
       days: days,
       openDialog: null,
     }
@@ -76,16 +74,13 @@ class App extends React.Component {
 
   fillDemoData = () => {
 
-    const today = new Date();
-    let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const currYear = new Date().getFullYear();    
     const days = {};
-
-    while (currentDay.getFullYear() === today.getFullYear()) {
-      days[currentDay.setHours(0, 0, 0, 0)] = Math.floor(Math.random() * 5 + 1);
-      let nextDay = new Date(currentDay);
-      nextDay.setDate(nextDay.getDate() + 1);
-      currentDay = nextDay;
-    }
+    Array(daysInYear(currYear))
+      .fill(0)
+      .forEach((_, i) => {
+        days[i] = Math.floor(Math.random() * 5 + 1);
+      });
 
     this.setState({ days });
   }
@@ -98,16 +93,13 @@ class App extends React.Component {
 
   clearData = () => {
 
-    const today = new Date();
-    let currentDay = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
+    const currYear = new Date().getFullYear();    
     const days = {};
-
-    while (currentDay.getFullYear() === today.getFullYear()) {
-      days[currentDay.setHours(0, 0, 0, 0)] = 0;
-      let nextDay = new Date(currentDay);
-      nextDay.setDate(nextDay.getDate() + 1);
-      currentDay = nextDay;
-    }
+    Array(daysInYear(currYear))
+      .fill(0)
+      .forEach((_, i) => {
+        days[i] = 0;
+      });
 
     this.setState({ days });
   }
@@ -207,34 +199,35 @@ class App extends React.Component {
                 style={{ ...transitionStyles[state] }}
               />)}
           </Transition>
-          <Transition 
-            in={this.state.openDialog === "export"} 
-            timeout={duration} 
-            mountOnEnter 
-            unmountOnExit 
+          <Transition
+            in={this.state.openDialog === "export"}
+            timeout={duration}
+            mountOnEnter
+            unmountOnExit
             enter={enableAnimations}
             exit={enableAnimations}
           >
             {(state) => (
-              <ExportDialog 
-                days={this.state.days} 
-                closeDialog={this.closeDialog} 
-                style={{ ...transitionStyles[state] }} 
+              <ExportDialog
+                days={this.state.days}
+                closeDialog={this.closeDialog}
+                style={{ ...transitionStyles[state] }}
               />)}
           </Transition>
-          <Transition 
-            in={this.state.openDialog === "about"} 
-            timeout={duration} 
-            mountOnEnter 
-            unmountOnExit 
+          <Transition
+            in={this.state.openDialog === "about"}
+            timeout={duration}
+            mountOnEnter
+            unmountOnExit
             enter={enableAnimations}
             exit={enableAnimations}
           >
             {(state) => (
-              <AboutDialog 
-                closeDialog={this.closeDialog} 
-                style={{ ...transitionStyles[state] 
-              }}/>)}
+              <AboutDialog
+                closeDialog={this.closeDialog}
+                style={{
+                  ...transitionStyles[state]
+                }} />)}
           </Transition>
         </div>
       </div>

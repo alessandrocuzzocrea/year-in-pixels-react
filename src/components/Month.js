@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { daysInMonth } from '../helpers';
 
+import { dayIndex } from '../helpers'
 import MoodDay from './MoodDay'
 
 class Month extends React.Component {
@@ -16,10 +17,11 @@ class Month extends React.Component {
                 <span>{monthNameInitial}</span>
                     { Array(noOfDaysInMonth).fill().map((_, i) => {
 
-                        const date = new Date(year, month, i+1).setHours(0,0,0,0);
-                        const dataMood = days[date] || 0;
+                        const date = new Date(year, month, i+1);
+                        const day = dayIndex(date.getFullYear(), date.getMonth(), date.getDate());
+                        const dataMood = days[day] || 0;
 
-                        return <MoodDay key={i} date={date} dataMood={dataMood} activeDay={activeDay} setActiveDay={this.props.setActiveDay} />
+                        return <MoodDay key={i} day={day} dataMood={dataMood} activeDay={activeDay} setActiveDay={this.props.setActiveDay} />
                     })
                     }
             </div>

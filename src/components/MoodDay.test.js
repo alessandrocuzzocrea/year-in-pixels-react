@@ -6,37 +6,37 @@ configure({ adapter: new Adapter() });
 
 import MoodDay from './MoodDay';
 
-
 describe('<MoodDay />', () => {
 
     it ('works correctly', () => {
         const wrapper = shallow(
         <MoodDay
-            date={1541026800000}
-            activeDay={1514761200000}
+            day={0}
+            activeDay={0}
             dataMood={0}
-            setActiveDay={() => {}}
+            setActiveDay={jest.fn()}
         />);
     });
 
     it('has active class if is the active day', () => {
         const wrapper = shallow(
             <MoodDay
-                date={1541026800000}
-                activeDay={1541026800000}
+                day={0}
+                activeDay={0}
                 dataMood={0}
-                setActiveDay={() => {}}
+                setActiveDay={jest.fn()}
             />);
+            // console.log(wrapper.html());
         expect(wrapper.find('button').hasClass('active')).toBe(true);
     });
 
     it('does not have active class if is the day is not active', () => {
         const wrapper = shallow(
             <MoodDay
-                date={1541026800000}
-                activeDay={1514761200000}
+                day={0}
+                activeDay={1}
                 dataMood={0}
-                setActiveDay={() => {}}
+                setActiveDay={jest.fn()}
             />);
         expect(wrapper.find('button').hasClass('active')).toBe(false);
     });

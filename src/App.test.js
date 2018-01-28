@@ -13,9 +13,12 @@ fetchMock.get('https://quotes.rest/qod', qodMockData);
 global.window = {}
 import localStorage from 'mock-local-storage'
 import { request } from 'https';
-window.localStorage = global.localStorage
+window.localStorage = global.localStorage;
 
-import { days, daysFillData } from '../fixtures/moodCalendarMockData';
+import mockdate from 'mockdate';
+
+import { currDayIndex } from './helpers';
+import { days, daysInitialState, daysFillData } from '../fixtures/moodCalendarMockData';
 
 beforeEach(() => {
     window.localStorage.clear();
@@ -28,9 +31,13 @@ describe('<App />', () => {
     });
 
     it('starts with current date as active day', () => {
-        const todayDate = new Date().setHours(0, 0, 0, 0);
         const wrapper = shallow(<App />);
-        expect(wrapper.state().activeMoodDay).toBe(todayDate);
+        expect(wrapper.state().activeMoodDay).toEqual(currDayIndex());
+    });
+
+    it('initial state is empty', () => {
+        const wrapper = shallow(<App />);
+        expect(wrapper.state().days).toEqual(daysInitialState);
     });
 
     it('change active day on click', () => {
@@ -38,16 +45,24 @@ describe('<App />', () => {
         {
             const moodDay = wrapper.find('MoodDay').at(0);
             moodDay.find('button').simulate('click');
-            expect(wrapper.state().activeMoodDay).toBe(moodDay.props().date);
+            expect(wrapper.state().activeMoodDay).toEqual(moodDay.props().day);
         };
         {
             const moodDay = wrapper.find('MoodDay').at(1);
             moodDay.find('button').simulate('click');
-            expect(wrapper.state().activeMoodDay).toBe(moodDay.props().date);
+            expect(wrapper.state().activeMoodDay).toEqual(moodDay.props().day);
         };
     });
 
     it('change active day mood value', () => {
+        mockdate.set('2018/1/1');
+        const wrapper = shallow(<App />);
+        wrapper.instance().changeDateMoodValue(5);
+        const {days, activeMoodDay} = wrapper.state()
+        expect(days[activeMoodDay]).toEqual(5);
+    });
+
+    it('change active day mood value on click', () => {
         const wrapper = mount(<App />);
         const { activeMoodDay } = wrapper.state();
         const moodSelector = wrapper.find('MoodSelector');

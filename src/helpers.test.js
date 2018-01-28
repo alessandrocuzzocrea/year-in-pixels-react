@@ -1,27 +1,51 @@
-import helpers from './helpers';
+import mockdate from 'mockdate';
+
+import { daysInYear, daysInMonth, dayIndex, currDayIndex } from './helpers';
 
 describe('helpers', () => {
 
     it('return 365 if regular year', () => {
-        expect(helpers.daysInYear(2018)).toEqual(365);
+        expect(daysInYear(2018)).toEqual(365);
     });
 
     it('return 366 if leap year', () => {
-        expect(helpers.daysInYear(2020)).toEqual(366);
+        expect(daysInYear(2020)).toEqual(366);
     });
 
     it('return the right number of days', () => {
-        expect(helpers.daysInMonth(2018, 0)).toEqual(31);
-        expect(helpers.daysInMonth(2018, 1)).toEqual(28);
-        expect(helpers.daysInMonth(2018, 2)).toEqual(31);
-        expect(helpers.daysInMonth(2018, 3)).toEqual(30);
-        expect(helpers.daysInMonth(2018, 4)).toEqual(31);
-        expect(helpers.daysInMonth(2018, 5)).toEqual(30);
-        expect(helpers.daysInMonth(2018, 6)).toEqual(31);
-        expect(helpers.daysInMonth(2018, 7)).toEqual(31);
-        expect(helpers.daysInMonth(2018, 8)).toEqual(30);
-        expect(helpers.daysInMonth(2018, 9)).toEqual(31);
-        expect(helpers.daysInMonth(2018, 10)).toEqual(30);
-        expect(helpers.daysInMonth(2018, 11)).toEqual(31);
-    })
+
+        expect(daysInMonth(2018, 1)).toEqual(28);
+        expect(daysInMonth(2018, 2)).toEqual(31);
+        expect(daysInMonth(2018, 3)).toEqual(30);
+        expect(daysInMonth(2018, 4)).toEqual(31);
+        expect(daysInMonth(2018, 5)).toEqual(30);
+        expect(daysInMonth(2018, 6)).toEqual(31);
+        expect(daysInMonth(2018, 7)).toEqual(31);
+        expect(daysInMonth(2018, 8)).toEqual(30);
+        expect(daysInMonth(2018, 9)).toEqual(31);
+        expect(daysInMonth(2018, 10)).toEqual(30);
+        expect(daysInMonth(2018, 11)).toEqual(31);
+    });
+
+    it('return the right day index', () => {
+
+        let nextYear = new Date(2019, 0, 1);
+        let i = 0;
+        for (let d = new Date(2018, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
+            expect(dayIndex(d.getFullYear(), d.getMonth(), d.getDate())).toEqual(i);
+            i++;
+        }
+    });
+
+    it('return the current day index', () => {
+
+        mockdate.set('2018/1/1');
+        expect(currDayIndex()).toEqual(0);
+
+        mockdate.set('2018/1/2');
+        expect(currDayIndex()).toEqual(1);
+
+        mockdate.set('2018/1/3');
+        expect(currDayIndex()).not.toEqual(1);
+    });
 });

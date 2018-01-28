@@ -2,19 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MoodDay = (props) => {
-        const { date, activeDay, dataMood } = props;
+        const { day, activeDay, dataMood } = props;
         return <button
-            className={date === activeDay ? "active" : null}
+            className={day === activeDay ? "active" : null}
             data-mood={dataMood}
-            onClick={() => { props.setActiveDay(props.date) }}>
+            onClick={() => { props.setActiveDay(props.day) }}>
         </button>
 };
 
 MoodDay.propTypes = {
-    date: PropTypes.number.isRequired,
-
-    dataMood: PropTypes.number.isRequired,
+    day: PropTypes.number.isRequired,
     activeDay: PropTypes.number.isRequired,
+    dataMood: PropTypes.number.isRequired,
     setActiveDay: PropTypes.func.isRequired,
 };
 

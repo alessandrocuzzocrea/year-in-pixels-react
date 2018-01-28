@@ -8,9 +8,14 @@ export function daysInYear(year) {
 
 export function daysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
+};
+
+export function dayIndex(year, month, day) {
+    return Math.ceil((new Date(year, month, day) - new Date(year, 0, 1)) / 86400000);
 }
 
-export default {
-    daysInYear: daysInYear,
-    daysInMonth: daysInMonth,
-};
+export function currDayIndex() {
+    const date = new Date();
+    return dayIndex(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
