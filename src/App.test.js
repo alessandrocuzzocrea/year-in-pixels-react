@@ -15,7 +15,7 @@ import localStorage from 'mock-local-storage'
 import { request } from 'https';
 window.localStorage = global.localStorage
 
-import { days } from '../fixtures/moodCalendarMockData';
+import { days, daysFillData } from '../fixtures/moodCalendarMockData';
 
 beforeEach(() => {
     window.localStorage.clear();
@@ -61,7 +61,6 @@ describe('<App />', () => {
     // it('number of MoodDay is correct', () => {
     //     fail('test not implemented');
     // });
-
 });
 
 describe('dialogs', () => {
@@ -111,6 +110,32 @@ describe('dialogs', () => {
         expect(wrapper.find('AboutDialog').length).toEqual(0);
 
     });
+});
+
+describe('loading demo data', () => {
+
+    it('should fill the days with random data', () => {
+        global.Math.random = jest.fn().mockReturnValue(0.5);
+        global.confirm = jest.fn().mockReturnValue(true);
+
+        const wrapper = mount(<App />);
+        const demoDataLink = wrapper.find('[data-menu="demo"]');
+        demoDataLink.simulate('click');
+
+        expect(wrapper.state().days).toEqual(daysFillData);
+    });
+
+    it('should not fill the days with random data if the user do not confirm', () => {
+        global.Math.random = jest.fn().mockReturnValue(0.5);
+        global.confirm = jest.fn().mockReturnValue(false);
+
+        const wrapper = mount(<App />);
+        const demoDataLink = wrapper.find('[data-menu="demo"]');
+        demoDataLink.simulate('click');
+
+        expect(wrapper.state().days).not.toEqual(daysFillData);
+    });
+
 });
 
 describe('save and load data', () => {
