@@ -15,14 +15,13 @@ import localStorage from 'mock-local-storage'
 import { request } from 'https';
 window.localStorage = global.localStorage
 
-import {days} from '../fixtures/moodCalendarMockData';
+import { days } from '../fixtures/moodCalendarMockData';
 
+beforeEach(() => {
+    window.localStorage.clear();
+});
 
 describe('<App />', () => {
-
-    beforeEach(() => {
-        window.localStorage.clear();
-    });
 
     it('renders without crashing', () => {
         const wrapper = shallow(<App />);
@@ -48,38 +47,24 @@ describe('<App />', () => {
         };
     });
 
-    it ('change active day mood value', () => {
+    it('change active day mood value', () => {
         const wrapper = mount(<App />);
         const { activeMoodDay } = wrapper.state();
         const moodSelector = wrapper.find('MoodSelector');
-        
-        [5, 4, 3, 2, 1, 0].map((value) =>{
+
+        [5, 4, 3, 2, 1, 0].map((value) => {
             moodSelector.find('div').at(value).simulate('click');
             expect(wrapper.state().days[activeMoodDay]).toEqual(value);
         });
     });
 
-    it('saves data to localStorage', () => {
-        const wrapper = mount(<App />);
-        wrapper.setState({days: days});
-        expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(days);
-    });
+    // it('number of MoodDay is correct', () => {
+    //     fail('test not implemented');
+    // });
 
-    it('load data from localStorage', () => {
-        window.localStorage.setItem('moodCalendar', JSON.stringify(days));
-        const wrapper = mount(<App />);
-        expect(wrapper.state().days).toEqual(days);
-    });
+});
 
-    it('loadState must return null if JSON.parse throw an error', () => {
-        const wrapper = mount(<App />);
-
-        window.localStorage.setItem('moodCalendar', null);
-        expect(wrapper.instance().loadState()).toEqual(null);
-
-        window.localStorage.setItem('moodCalendar', 'random_garbage');
-        expect(wrapper.instance().loadState()).toEqual(null);        
-    });
+describe('dialogs', () => {
 
     it('has no dialog open on start', () => {
         const wrapper = mount(<App />);
@@ -126,9 +111,30 @@ describe('<App />', () => {
         expect(wrapper.find('AboutDialog').length).toEqual(0);
 
     });
+});
 
-    // it('number of MoodDay is correct', () => {
-    //     fail('test not implemented');
-    // });
+describe('save and load data', () => {
+
+    it('saves data to localStorage', () => {
+        const wrapper = mount(<App />);
+        wrapper.setState({ days: days });
+        expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(days);
+    });
+
+    it('load data from localStorage', () => {
+        window.localStorage.setItem('moodCalendar', JSON.stringify(days));
+        const wrapper = mount(<App />);
+        expect(wrapper.state().days).toEqual(days);
+    });
+
+    it('loadState must return null if JSON.parse throw an error', () => {
+        const wrapper = mount(<App />);
+
+        window.localStorage.setItem('moodCalendar', null);
+        expect(wrapper.instance().loadState()).toEqual(null);
+
+        window.localStorage.setItem('moodCalendar', 'random_garbage');
+        expect(wrapper.instance().loadState()).toEqual(null);
+    });
 
 });
