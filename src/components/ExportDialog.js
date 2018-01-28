@@ -3,8 +3,8 @@ import React from 'react';
 
 class ExportDialog extends React.Component {
     render() {
-        
-        const {days} = this.props;
+
+        const { days } = this.props;
 
         const res = Object
             .keys(this.props.days)
@@ -16,7 +16,7 @@ class ExportDialog extends React.Component {
                 <a href="#" className="close" onClick={() => this.props.closeDialog()}>X</a>
                 <h3>Export a mood calendar</h3>
                 <p>Copy the following text and use the import tool to import it.</p>
-                <textarea ref={ (el) => this.textArea = el }id="exportMoodText" onClick={() => { this.textArea.select() }}
+                <textarea ref={(el) => this.textArea = el} id="exportMoodText" onClick={() => { this.textArea.select() }}
                     readOnly="readonly" value={res}></textarea>
             </div>
         );
