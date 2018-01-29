@@ -72,10 +72,6 @@ describe('<App />', () => {
             expect(wrapper.state().days[activeMoodDay]).toEqual(value);
         });
     });
-
-    // it('number of MoodDay is correct', () => {
-    //     fail('test not implemented');
-    // });
 });
 
 describe('dialogs', () => {
