@@ -126,7 +126,8 @@ describe('dialogs', () => {
     });
 
     it('import days from string', () => {
-        global.confirm = jest.fn().mockReturnValue(true);
+
+        const confirmSpy = jest.spyOn(global, 'confirm').mockReturnValue(true);
         const wrapper = mount(<App enableAnimations={false} />);
 
         const importLink = wrapper.find('[data-menu="import"]');
@@ -139,31 +140,39 @@ describe('dialogs', () => {
         importDialogOkButton.simulate('click');
 
         expect(wrapper.state().days).toEqual(days);
+
+        confirmSpy.mockRestore();
     });
 });
 
 describe('loading demo data', () => {
 
     it('should fill the days with random data', () => {
-        global.Math.random = jest.fn().mockReturnValue(0.5);
-        global.confirm = jest.fn().mockReturnValue(true);
+        const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
+        const confirmSpy = jest.spyOn(global, 'confirm').mockReturnValue(true);
 
         const wrapper = mount(<App />);
         const demoDataLink = wrapper.find('[data-menu="demo"]');
         demoDataLink.simulate('click');
 
         expect(wrapper.state().days).toEqual(daysFillData);
+
+        randomSpy.mockRestore();
+        confirmSpy.mockRestore();
     });
 
-    it('should not fill the days with random data if the user do not confirm', () => {
-        global.Math.random = jest.fn().mockReturnValue(0.5);
-        global.confirm = jest.fn().mockReturnValue(false);
+    it.only('should not fill the days with random data if the user do not confirm', () => {
+        const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
+        const confirmSpy = jest.spyOn(global, 'confirm').mockReturnValue(false);
 
         const wrapper = mount(<App />);
         const demoDataLink = wrapper.find('[data-menu="demo"]');
         demoDataLink.simulate('click');
 
         expect(wrapper.state().days).not.toEqual(daysFillData);
+
+        randomSpy.mockRestore();
+        confirmSpy.mockRestore();
     });
 
 });
