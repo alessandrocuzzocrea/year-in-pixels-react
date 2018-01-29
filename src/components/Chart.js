@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ChartistGraph from 'react-chartist';
 
 import { dayToMonth } from '../helpers';
+import { moodOptions } from '../consts';
 
 class Chart extends React.Component {
 
@@ -24,13 +25,15 @@ class Chart extends React.Component {
     });
 
     return res2;
-  }
+  };
+
+  labelInterpolation = (_, index) => {
+    return moodOptions[index];
+  };
 
   render() {
 
     const { days } = this.props;
-
-    const moodOptions = ["none", "tough", "difficult", "average", "great", "amazing"];
 
     const data = {
       labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
@@ -40,9 +43,7 @@ class Chart extends React.Component {
     const options = {
       axisY: {
         onlyInteger: true,
-        labelInterpolationFnc: function (value, index) {
-          return moodOptions[index];
-        },
+        labelInterpolationFnc: this.labelInterpolation,
         stretch: true,
         offset: 50
       },
