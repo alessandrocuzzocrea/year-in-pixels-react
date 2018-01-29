@@ -8,7 +8,6 @@ configure({ adapter: new Adapter() });
 
 var fetchMock = require('fetch-mock');
 var qodMockData = require('../fixtures/qodMockData')
-fetchMock.get('https://quotes.rest/qod', qodMockData);
 
 global.window = {}
 import localStorage from 'mock-local-storage'
@@ -17,8 +16,13 @@ window.localStorage = global.localStorage;
 
 import mockdate from 'mockdate';
 
+import consts from './consts';
 import { currDayIndex } from './helpers';
 import { days, daysInitialState, daysFillData, daysString } from '../fixtures/moodCalendarMockData';
+
+beforeAll(() => {
+    fetchMock.get(consts.QuotesRESTAPIUrl, qodMockData);
+});
 
 beforeEach(() => {
     window.localStorage.clear();
