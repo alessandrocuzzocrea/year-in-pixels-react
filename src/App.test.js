@@ -193,3 +193,14 @@ describe('save and load data', () => {
     });
 
 });
+
+describe('clear data', () => {
+
+    it('clears data', () => {
+        const wrapper = shallow(<App />);
+        wrapper.setState({ days: days });
+        expect(wrapper.state().days).not.toEqual(daysInitialState);
+        wrapper.instance().clearData();
+        expect(wrapper.state().days).toEqual(daysInitialState);
+    });
+});
