@@ -12,12 +12,10 @@ describe('<ExportDialog />', () => {
 
     it('works correctly', () => {
 
-        const mockFn = jest.fn();
-
         const wrapper = shallow(
             <ExportDialog
                 days={days}
-                closeDialog={mockFn}
+                closeDialog={() => { }}
             />
         );
     });
@@ -27,7 +25,7 @@ describe('<ExportDialog />', () => {
         const wrapper = shallow(
             <ExportDialog
                 days={days}
-                closeDialog={jest.fn()}
+                closeDialog={() => { }}
             />
         );
 
@@ -39,7 +37,7 @@ describe('<ExportDialog />', () => {
         const wrapper = mount(
             <ExportDialog
                 days={days}
-                closeDialog={jest.fn()}
+                closeDialog={() => { }}
             />
         );
 
