@@ -12,24 +12,23 @@ describe('<ImportDialog />', () => {
 
     it('works correctly', () => {
 
-        const mockFn = jest.fn();
+        const fn = () => { };
 
         const wrapper = shallow(
             <ImportDialog
-                importData={mockFn}
-                closeDialog={mockFn}
+                importData={fn}
+                closeDialog={fn}
             />);
     });
 
     it('calls fn with right argument', () => {
 
-        global.confirm = jest.fn().mockReturnValue(true);
         const importDataMock = jest.fn();
 
         const wrapper = mount(
             <ImportDialog
                 importData={importDataMock}
-                closeDialog={jest.fn()}
+                closeDialog={() => { }}
             />);
 
         const importDialogTextArea = wrapper.find('textarea');
