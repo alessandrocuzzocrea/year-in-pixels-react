@@ -13,34 +13,34 @@ describe('<Interface />', () => {
     it('works correctly', () => {
 
         const { days, activeMoodDayValue, changeDateMoodValue } = moodCalendarMockData;
-        const mockFn = jest.fn();
+        const fn = () => { };
 
         const wrapper = shallow(
             <Interface
                 days={days}
                 activeMoodDayValue={activeMoodDayValue}
-                changeDateMoodValue={mockFn}
-                openDialog={mockFn}
-                closeDialog={mockFn}
-                askDemoDataConfirm={mockFn}
-                askClearDataConfirm={mockFn}
+                changeDateMoodValue={fn}
+                openDialog={fn}
+                closeDialog={fn}
+                askDemoDataConfirm={fn}
+                askClearDataConfirm={fn}
             />);
     });
 
     it('it returns null if the moodValue is not one of the possible values', () => {
 
         const { days, activeMoodDayValue, changeDateMoodValue } = moodCalendarMockData;
-        const mockFn = jest.fn();
+        const fn = () => { };
 
         const wrapper = shallow(
             <Interface
                 days={days}
                 activeMoodDayValue={activeMoodDayValue}
-                changeDateMoodValue={mockFn}
-                openDialog={mockFn}
-                closeDialog={mockFn}
-                askDemoDataConfirm={mockFn}
-                askClearDataConfirm={mockFn}
+                changeDateMoodValue={fn}
+                openDialog={fn}
+                closeDialog={fn}
+                askDemoDataConfirm={fn}
+                askClearDataConfirm={fn}
             />);
 
         expect(wrapper.instance().getMessage(-1)).toEqual(null);
