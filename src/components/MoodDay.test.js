@@ -8,14 +8,14 @@ import MoodDay from './MoodDay';
 
 describe('<MoodDay />', () => {
 
-    it ('works correctly', () => {
+    it('works correctly', () => {
         const wrapper = shallow(
-        <MoodDay
-            day={0}
-            activeDay={0}
-            dataMood={0}
-            setActiveDay={jest.fn()}
-        />);
+            <MoodDay
+                day={0}
+                activeDay={0}
+                dataMood={0}
+                setActiveDay={() => { }}
+            />);
     });
 
     it('has active class if is the active day', () => {
@@ -24,9 +24,8 @@ describe('<MoodDay />', () => {
                 day={0}
                 activeDay={0}
                 dataMood={0}
-                setActiveDay={jest.fn()}
+                setActiveDay={() => { }}
             />);
-            // console.log(wrapper.html());
         expect(wrapper.find('button').hasClass('active')).toBe(true);
     });
 
@@ -36,7 +35,7 @@ describe('<MoodDay />', () => {
                 day={0}
                 activeDay={1}
                 dataMood={0}
-                setActiveDay={jest.fn()}
+                setActiveDay={() => { }}
             />);
         expect(wrapper.find('button').hasClass('active')).toBe(false);
     });
