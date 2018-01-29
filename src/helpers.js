@@ -1,4 +1,4 @@
-export function daysInYear(year) {
+function daysInYear(year) {
     if (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)) {
         return 366;
     } else {
@@ -6,31 +6,53 @@ export function daysInYear(year) {
     }
 };
 
-export function daysInMonth(year, month) {
+function daysInMonth(year, month) {
     return new Date(year, month + 1, 0).getDate();
 };
 
-export function dayIndex(year, month, day) {
+function dayIndex(year, month, day) {
     return Math.ceil((new Date(year, month, day) - new Date(year, 0, 1)) / 86400000);
 };
 
-export function currDayIndex() {
+function currDayIndex() {
     const date = new Date();
     return dayIndex(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
-export function currYear() {
+function currYear() {
     return new Date().getFullYear();
 };
 
-export function dayToMonth(day) {
+function dayToMonthMemo(day) {
+    let year = currYear();
+    let cache = {};
 
-    const nextYear = new Date(currYear() + 1, 0, 1);
-    let i = 0;
-    for (let d = new Date(currYear(), 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
-        if (day === dayIndex(d.getFullYear(), d.getMonth(), d.getDate())) {
-            return d.getMonth();
+    return (day) => {
+        if (year !== new Date().getFullYear()) {
+            year = new Date().getFullYear();
+            cache = {};
+        }
+        if (day in cache) return cache[day];
+        const nextYear = new Date(year + 1, 0, 1);
+        let i = 0;
+        for (let d = new Date(year, 0, 1); d < nextYear; d.setDate(d.getDate() + 1)) {
+            if (day === dayIndex(d.getFullYear(), d.getMonth(), d.getDate())) {
+                cache[day] = d.getMonth();
+                return cache[day];
+            };
+            i++;
         };
-        i++;
-    };
+    }
 };
+
+const dayToMonth = dayToMonthMemo();
+
+export {
+    daysInYear,
+    daysInMonth,
+    dayIndex,
+    currDayIndex,
+    currYear,
+    dayToMonthMemo,
+    dayToMonth,
+}
