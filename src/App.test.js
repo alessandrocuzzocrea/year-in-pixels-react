@@ -30,14 +30,14 @@ describe('<App />', () => {
         const wrapper = shallow(<App />);
     });
 
+    it('days are correctly initialized', () => {
+        const wrapper = shallow(<App />);
+        expect(wrapper.state().days).toEqual(daysInitialState);
+    });
+
     it('starts with current date as active day', () => {
         const wrapper = shallow(<App />);
         expect(wrapper.state().activeMoodDay).toEqual(currDayIndex());
-    });
-
-    it('initial state is empty', () => {
-        const wrapper = shallow(<App />);
-        expect(wrapper.state().days).toEqual(daysInitialState);
     });
 
     it('change active day on click', () => {
