@@ -1,7 +1,8 @@
 import React from 'react';
-import { Transition } from 'react-transition-group'
+import { Transition } from 'react-transition-group';
 
-import { daysInYear, currDayIndex } from './helpers'
+import consts from './consts';
+import { daysInYear, currDayIndex } from './helpers';
 
 import Header from './components/Header';
 import Pixels from './components/Pixels';
@@ -67,7 +68,7 @@ class App extends React.Component {
   };
 
   askDemoDataConfirm = () => {
-    if (window.confirm("Careful, this will clear all the current data. Are you sure?")) {
+    if (window.confirm(consts.clearDataMsg)) {
       this.fillDemoData();
     }
   };

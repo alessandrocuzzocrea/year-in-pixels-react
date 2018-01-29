@@ -161,7 +161,7 @@ describe('loading demo data', () => {
         confirmSpy.mockRestore();
     });
 
-    it.only('should not fill the days with random data if the user do not confirm', () => {
+    it('should not fill the days with random data if the user do not confirm', () => {
         const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
         const confirmSpy = jest.spyOn(global, 'confirm').mockReturnValue(false);
 
@@ -211,5 +211,15 @@ describe('clear data', () => {
         expect(wrapper.state().days).not.toEqual(daysInitialState);
         wrapper.instance().clearData();
         expect(wrapper.state().days).toEqual(daysInitialState);
+    });
+
+    it('asks for confirmation before clearing the data', () => {
+        const confirmSpy = jest.spyOn(global, 'confirm');
+        const wrapper = shallow(<App />);
+
+        wrapper.instance().askClearDataConfirm();
+        expect(confirmSpy).toHaveBeenCalledWith(consts.clearDataMsg);
+
+        confirmSpy.mockRestore();
     });
 });
