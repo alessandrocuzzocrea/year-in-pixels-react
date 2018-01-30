@@ -4,7 +4,6 @@ import { Transition } from 'react-transition-group';
 import consts from './consts';
 import { daysInYear, currDayIndex } from './helpers';
 
-import Header from './components/Header';
 import Pixels from './components/Pixels';
 import MoodGrid from './components/MoodGrid';
 import Interface from './components/Interface';
@@ -165,7 +164,9 @@ class App extends React.Component {
       <div className="content">
         <div className="container">
           <div className="column">
-            <Header />
+            <div className="header">
+              <h1>Year in Pixels</h1>
+            </div>
           </div>
           <div className="column">
             <Pixels />
