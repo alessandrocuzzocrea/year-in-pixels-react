@@ -2,6 +2,7 @@
   "name": "year-in-pixels-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://alessandrocuzzocrea.github.io/year-in-pixels-react/",
   "dependencies": {
     "react": "^16.2.0",
     "react-chartist": "^0.13.1",
