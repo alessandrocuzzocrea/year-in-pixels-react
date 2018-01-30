@@ -11,3 +11,11 @@ install:
 script: 
   - npm run build
   - npm run coverage
+deploy:
+  provider: pages
+  local-dir: build
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  on:
+    branch: master
