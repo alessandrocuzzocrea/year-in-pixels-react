@@ -29,6 +29,30 @@ export const labelInterpolation = (_, index) => {
   return moodOptions[index];
 };
 
+const options = {
+  axisY: {
+    onlyInteger: true,
+    labelInterpolationFnc: labelInterpolation,
+    stretch: true,
+    offset: 50
+  },
+  axisX: {
+    offset: 20
+  },
+  high: 6,
+  low: 0,
+  showArea: true,
+  showLine: true,
+  showPoint: false,
+  fullWidth: true,
+  chartPadding: {
+    top: 0,
+    right: 10
+  }
+};
+
+const type = 'Line';
+
 const Chart = (props) => {
 
   const { days } = props;
@@ -37,30 +61,6 @@ const Chart = (props) => {
     labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
     series: [getMonthMoodAvgArr(days)],
   };
-
-  const options = {
-    axisY: {
-      onlyInteger: true,
-      labelInterpolationFnc: labelInterpolation,
-      stretch: true,
-      offset: 50
-    },
-    axisX: {
-      offset: 20
-    },
-    high: 6,
-    low: 0,
-    showArea: true,
-    showLine: true,
-    showPoint: false,
-    fullWidth: true,
-    chartPadding: {
-      top: 0,
-      right: 10
-    }
-  };
-
-  const type = 'Line';
 
   return (
     <div id="chart">
