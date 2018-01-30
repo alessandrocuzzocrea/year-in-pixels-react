@@ -20,7 +20,7 @@ describe('<ExportDialog />', () => {
         );
     });
 
-    it('convert days object to string', () => {
+    it('converts days object to string', () => {
 
         const wrapper = shallow(
             <ExportDialog
@@ -32,7 +32,7 @@ describe('<ExportDialog />', () => {
         expect(wrapper.instance().daysToString(days)).toEqual(daysString);
     });
 
-    it('select textarea on click', () => {
+    it('selects textarea on click', () => {
 
         const wrapper = mount(
             <ExportDialog
