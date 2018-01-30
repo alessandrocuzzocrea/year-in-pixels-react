@@ -6,7 +6,7 @@ configure({ adapter: new Adapter() });
 
 import { days, daysString, noOfDays } from '../../fixtures/moodCalendarMockData';
 
-import ExportDialog from './ExportDialog';
+import ExportDialog, { daysToString } from './ExportDialog';
 
 describe('<ExportDialog />', () => {
 
@@ -18,18 +18,6 @@ describe('<ExportDialog />', () => {
                 closeDialog={() => { }}
             />
         );
-    });
-
-    it('converts days object to string', () => {
-
-        const wrapper = shallow(
-            <ExportDialog
-                days={days}
-                closeDialog={() => { }}
-            />
-        );
-
-        expect(wrapper.instance().daysToString(days)).toEqual(daysString);
     });
 
     it('selects textarea on click', () => {
@@ -50,5 +38,12 @@ describe('<ExportDialog />', () => {
 
         expect(textArea.instance().selectionStart).toEqual(0);
         expect(textArea.instance().selectionEnd).toEqual(noOfDays);
+    });
+});
+
+describe('daysToString', () => {
+
+    it('converts days object to string', () => {
+        expect(daysToString(days)).toEqual(daysString);
     });
 });
