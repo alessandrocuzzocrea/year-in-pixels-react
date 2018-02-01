@@ -190,7 +190,7 @@ class App extends React.Component {
         </div>
         <div id="menu">
           <Transition
-            in={this.state.openDialog === "import"}
+            in={this.state.openDialog === consts.dialogs.import}
             timeout={duration}
             mountOnEnter
             unmountOnExit
@@ -205,7 +205,7 @@ class App extends React.Component {
               />)}
           </Transition>
           <Transition
-            in={this.state.openDialog === "export"}
+            in={this.state.openDialog === consts.dialogs.export}
             timeout={duration}
             mountOnEnter
             unmountOnExit
@@ -220,7 +220,7 @@ class App extends React.Component {
               />)}
           </Transition>
           <Transition
-            in={this.state.openDialog === "about"}
+            in={this.state.openDialog === consts.dialogs.about}
             timeout={duration}
             mountOnEnter
             unmountOnExit

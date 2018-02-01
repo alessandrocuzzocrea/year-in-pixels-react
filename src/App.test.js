@@ -61,6 +61,15 @@ describe('dialogs', () => {
         expect(wrapper.find('ExportDialog').length).toEqual(0);
         expect(wrapper.find('AboutDialog').length).toEqual(0);
     });
+
+    it('sets state.openDialog value correctly', () => {
+        const wrapper = shallow(<App />);
+
+        Object.keys(consts.dialogs).forEach((val) => {
+            wrapper.instance().openDialog(consts.dialogs.import);
+            expect(wrapper.state().openDialog).toEqual(consts.dialogs.import);
+        });
+    });
 });
 
 describe('loading demo data', () => {
