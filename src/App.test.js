@@ -34,6 +34,7 @@ describe('<App />', () => {
     });
 
     it('change active day mood value', () => {
+    it('changes active day mood value', () => {
         mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         wrapper.instance().changeDateMoodValue(5);
