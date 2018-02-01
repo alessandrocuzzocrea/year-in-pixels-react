@@ -28,6 +28,7 @@ describe('<App />', () => {
     });
 
     it('starts with current date as active day', () => {
+        mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         expect(wrapper.state().activeMoodDay).toEqual(currDayIndex());
     });
