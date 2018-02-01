@@ -13,7 +13,7 @@ window.localStorage = global.localStorage;
 import mockdate from 'mockdate';
 
 import consts from './consts';
-import { currDayIndex } from './helpers';
+import { dayIndex, currDayIndex } from './helpers';
 import { days, daysInitialState, daysString } from '../fixtures/moodCalendarMockData';
 
 describe('<App />', () => {
@@ -33,7 +33,15 @@ describe('<App />', () => {
         expect(wrapper.state().activeMoodDay).toEqual(currDayIndex());
     });
 
-    it('change active day mood value', () => {
+    it('changes active day', () => {
+        mockdate.set('2018/1/1');
+        const wrapper = shallow(<App />);
+        const initialActiveMoodDay = wrapper.state().activeMoodDay;
+        const newActiveMoodDay = dayIndex(2018, 0, 2);
+        wrapper.instance().changeActiveMoodDay(newActiveMoodDay);
+        expect(wrapper.state().activeMoodDay).toEqual(newActiveMoodDay);
+    });
+
     it('changes active day mood value', () => {
         mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
