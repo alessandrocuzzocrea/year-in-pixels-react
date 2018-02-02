@@ -62,7 +62,6 @@ it('has no dialog open on start', () => {
 });
 
 describe('openDialog', () => {
-
     it('sets state.openDialog value correctly', () => {
         const wrapper = shallow(<App />);
 
@@ -72,6 +71,7 @@ describe('openDialog', () => {
         });
     });
 });
+
 describe('closeDialog', () => {
     it('sets state.openDialog to null', () => {
         const wrapper = shallow(<App />);
@@ -84,9 +84,48 @@ describe('closeDialog', () => {
     });
 });
 
-describe('loading demo data', () => {
+describe('askDemoDataConfirm', () => {
 
+    let confirmSpy;
 
+    beforeEach(() => {
+        confirmSpy = jest.spyOn(global, 'confirm');
+    });
+
+    afterEach(() => {
+        confirmSpy.mockRestore();
+    });
+
+    it('asks for confirmation', () => {
+        const wrapper = shallow(<App />);
+
+        wrapper.instance().askDemoDataConfirm();
+        expect(confirmSpy).toHaveBeenCalledWith(consts.clearDataMsg);
+    });
+
+    it('calls fillDemoData if confirm', () => {
+        const wrapper = shallow(<App />);
+
+        const fillDemoDataSpy = jest.spyOn(wrapper.instance(), 'fillDemoData');
+        confirmSpy.mockReturnValue(true);
+
+        wrapper.instance().askDemoDataConfirm();
+        expect(fillDemoDataSpy).toHaveBeenCalled();
+
+        fillDemoDataSpy.mockReset();
+    });
+
+    it('does not call fillDemoData if not confirm', () => {
+        const wrapper = shallow(<App />);
+
+        const fillDemoDataSpy = jest.spyOn(wrapper.instance(), 'fillDemoData');
+        confirmSpy.mockReturnValue(false);
+
+        wrapper.instance().askDemoDataConfirm();
+        expect(fillDemoDataSpy).not.toHaveBeenCalled();
+
+        fillDemoDataSpy.mockReset();
+    });
 });
 
 describe('save and load data', () => {
