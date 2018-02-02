@@ -115,19 +115,16 @@ class App extends React.Component {
 
   importData = (data) => {
 
-    const currYear = new Date().getFullYear();
-    const currYearDays = daysInYear(currYear);
-
-    if (data.length === currYearDays) {
+    if (this.isImportValid(data)) {
 
       const days = {};
-      Array(currYearDays)
+      Array(daysInYear(currYear()))
         .fill(0)
         .forEach((_, i) => {
-          days[i] = parseInt(data[i], 10) || 0;
+          days[i] = parseInt(data[i], 10);
         });
 
-      if (window.confirm("Careful, this will clear all the current data. Are you sure?")) {
+      if (window.confirm(consts.clearDataMsg)) {
         this.setState({ days });
         this.closeDialog();
 
@@ -135,7 +132,7 @@ class App extends React.Component {
       }
 
     } else {
-      window.alert("We're sorry.\nThe data is not valid. Please try again.");
+      window.alert(consts.importErrorMsg);
     }
   }
 
