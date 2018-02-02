@@ -53,14 +53,15 @@ describe('<App />', () => {
 
 });
 
-describe('dialogs', () => {
 
-    it('has no dialog open on start', () => {
-        const wrapper = shallow(<App />);
-        expect(wrapper.find('ImportDialog').length).toEqual(0);
-        expect(wrapper.find('ExportDialog').length).toEqual(0);
-        expect(wrapper.find('AboutDialog').length).toEqual(0);
-    });
+it('has no dialog open on start', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find('ImportDialog').length).toEqual(0);
+    expect(wrapper.find('ExportDialog').length).toEqual(0);
+    expect(wrapper.find('AboutDialog').length).toEqual(0);
+});
+
+describe('openDialog', () => {
 
     it('sets state.openDialog value correctly', () => {
         const wrapper = shallow(<App />);
@@ -69,6 +70,17 @@ describe('dialogs', () => {
             wrapper.instance().openDialog(consts.dialogs.import);
             expect(wrapper.state().openDialog).toEqual(consts.dialogs.import);
         });
+    });
+});
+describe('closeDialog', () => {
+    it('sets state.openDialog to null', () => {
+        const wrapper = shallow(<App />);
+
+        wrapper.instance().openDialog(consts.dialogs.import);
+        expect(wrapper.state().openDialog).toEqual(consts.dialogs.import);
+
+        wrapper.instance().closeDialog();
+        expect(wrapper.state().openDialog).toEqual(null);
     });
 });
 
