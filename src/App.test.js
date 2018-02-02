@@ -158,6 +158,50 @@ describe('save and load data', () => {
 
 });
 
+describe('askClearDataConfirm', () => {
+
+    let confirmSpy;
+
+    beforeEach(() => {
+        confirmSpy = jest.spyOn(global, 'confirm');
+    });
+
+    afterEach(() => {
+        confirmSpy.mockRestore();
+    });
+
+    it('asks for confirmation', () => {
+        const wrapper = shallow(<App />);
+
+        wrapper.instance().askClearDataConfirm();
+        expect(confirmSpy).toHaveBeenCalledWith(consts.clearDataMsg);
+    });
+
+    it('calls clearData if confirm', () => {
+        const wrapper = shallow(<App />);
+
+        const clearDataSpy = jest.spyOn(wrapper.instance(), 'clearData');
+        confirmSpy.mockReturnValue(true);
+
+        wrapper.instance().askClearDataConfirm();
+        expect(clearDataSpy).toHaveBeenCalled();
+
+        clearDataSpy.mockReset();
+    });
+
+    it('does not call clearData if not confirm', () => {
+        const wrapper = shallow(<App />);
+
+        const clearDataSpy = jest.spyOn(wrapper.instance(), 'clearData');
+        confirmSpy.mockReturnValue(false);
+
+        wrapper.instance().askClearDataConfirm();
+        expect(clearDataSpy).not.toHaveBeenCalled();
+
+        clearDataSpy.mockReset();
+    });
+});
+
 describe('clear data', () => {
 
     it('clears data', () => {
