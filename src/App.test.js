@@ -222,3 +222,30 @@ describe('clear data', () => {
         confirmSpy.mockRestore();
     });
 });
+
+describe('isImportValid', () => {
+
+    it('validate correct import string', () => {
+        const wrapper = shallow(<App />);
+        expect(wrapper.instance().isImportValid(daysString)).toEqual(true);
+    });
+
+    it('does not validate null input', () => {
+        const wrapper = shallow(<App />);
+        expect(wrapper.instance().isImportValid(null)).toEqual(false);
+    });
+
+    it('does not validate input that does not match current year length', () => {
+        mockdate.set('2018/1/1');
+
+        const wrapper = shallow(<App />);
+        expect(wrapper.instance().isImportValid('0123456')).toEqual(false);
+    });
+
+    it('does not validate input that contains any characters except 0123456', () => {
+
+        const wrapper = shallow(<App />);
+        const invalidDaysString = daysString.replace('3', 'z');
+        expect(wrapper.instance().isImportValid(invalidDaysString)).toEqual(false);
+    });
+});

@@ -2,7 +2,7 @@ import React from 'react';
 import { Transition } from 'react-transition-group';
 
 import consts from './consts';
-import { daysInYear, currDayIndex } from './helpers';
+import { daysInYear, currDayIndex, currYear } from './helpers';
 
 import Pixels from './components/Pixels';
 import MoodGrid from './components/MoodGrid';
@@ -102,6 +102,15 @@ class App extends React.Component {
       });
 
     this.setState({ days });
+  }
+
+  isImportValid = (data) => {
+
+    if (!data) return false;
+    if (data.length !== daysInYear(currYear())) return false;
+    if (data.match(/[^0-5]/)) return false;
+
+    return true;
   }
 
   importData = (data) => {
