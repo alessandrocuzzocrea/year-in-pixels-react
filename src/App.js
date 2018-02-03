@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Transition } from "react-transition-group";
 
 import consts from "./consts";
@@ -141,7 +141,7 @@ class App extends React.Component {
     }
   };
 
-  render() {
+  getDialog = (dialog, days) => {
     const { enableAnimations } = this.props;
 
     const transitionStyles = {
@@ -153,7 +153,45 @@ class App extends React.Component {
 
     const duration = 100;
 
-    const activeMoodDayValue = this.state.days[this.state.activeMoodDay];
+    return (
+      <Transition
+        in={this.state.openDialog === dialog}
+        timeout={duration}
+        mountOnEnter
+        unmountOnExit
+        enter={enableAnimations}
+        exit={enableAnimations}
+      >
+        {state => {
+          let DialogComponent;
+          switch (dialog) {
+            case consts.dialogs.import:
+              DialogComponent = ImportDialog;
+              break;
+            case consts.dialogs.export:
+              DialogComponent = ExportDialog;
+              break;
+            case consts.dialogs.about:
+              DialogComponent = AboutDialog;
+              break;
+          }
+
+          return (
+            <DialogComponent
+              importData={this.importData}
+              closeDialog={this.closeDialog}
+              style={{ ...transitionStyles[state] }}
+              days={days}
+            />
+          );
+        }}
+      </Transition>
+    );
+  };
+
+  render() {
+    const { days, activeMoodDay } = this.state;
+    const activeMoodDayValue = days[activeMoodDay];
 
     return (
       <div className="content">
@@ -188,55 +226,9 @@ class App extends React.Component {
           </div>
         </div>
         <div id="menu">
-          <Transition
-            in={this.state.openDialog === consts.dialogs.import}
-            timeout={duration}
-            mountOnEnter
-            unmountOnExit
-            enter={enableAnimations}
-            exit={enableAnimations}
-          >
-            {state => (
-              <ImportDialog
-                importData={this.importData}
-                closeDialog={this.closeDialog}
-                style={{ ...transitionStyles[state] }}
-              />
-            )}
-          </Transition>
-          <Transition
-            in={this.state.openDialog === consts.dialogs.export}
-            timeout={duration}
-            mountOnEnter
-            unmountOnExit
-            enter={enableAnimations}
-            exit={enableAnimations}
-          >
-            {state => (
-              <ExportDialog
-                days={this.state.days}
-                closeDialog={this.closeDialog}
-                style={{ ...transitionStyles[state] }}
-              />
-            )}
-          </Transition>
-          <Transition
-            in={this.state.openDialog === consts.dialogs.about}
-            timeout={duration}
-            mountOnEnter
-            unmountOnExit
-            enter={enableAnimations}
-            exit={enableAnimations}
-          >
-            {state => (
-              <AboutDialog
-                closeDialog={this.closeDialog}
-                style={{
-                  ...transitionStyles[state]
-                }}
-              />
-            )}
-          </Transition>
+          {this.getDialog(consts.dialogs.import)}
+          {this.getDialog(consts.dialogs.export, days)}
+          {this.getDialog(consts.dialogs.about)}
         </div>
       </div>
     );
