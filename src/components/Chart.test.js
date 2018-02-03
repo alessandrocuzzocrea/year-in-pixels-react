@@ -4,7 +4,7 @@ import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-import { days, daysAvg } from '../../fixtures/moodCalendarMockData';
+import { days, daysAvg } from '../../fixtures/calendarMockData';
 import { moodOptions } from '../consts';
 
 import Chart, { getMonthMoodAvgArr, labelInterpolation } from './Chart';

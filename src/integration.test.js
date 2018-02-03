@@ -17,7 +17,7 @@ import mockdate from 'mockdate';
 
 import consts from './consts';
 import { currDayIndex } from './helpers';
-import { days, daysInitialState, daysFillData, daysString } from '../fixtures/moodCalendarMockData';
+import { days, daysInitialState, daysFillData, daysString } from '../fixtures/calendarMockData';
 
 beforeAll(() => {
     fetchMock.get(consts.QuotesRESTAPIUrl, qodMockData);

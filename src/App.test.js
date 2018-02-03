@@ -14,7 +14,7 @@ import mockdate from 'mockdate';
 
 import consts from './consts';
 import { dayIndex, currDayIndex } from './helpers';
-import { days, daysInitialState, daysString } from '../fixtures/moodCalendarMockData';
+import { days, daysInitialState, daysString } from '../fixtures/calendarMockData';
 
 describe('<App />', () => {
 

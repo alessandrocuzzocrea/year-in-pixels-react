@@ -4,7 +4,7 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-import moodCalendarMockData from '../../fixtures/moodCalendarMockData';
+import calendarMockData from '../../fixtures/calendarMockData';
 
 import Interface, { getMessage } from './Interface';
 
@@ -12,7 +12,7 @@ describe('<Interface />', () => {
 
     it('works correctly', () => {
 
-        const { days, activeMoodDayValue, changeDateMoodValue } = moodCalendarMockData;
+        const { days, activeMoodDayValue, changeDateMoodValue } = calendarMockData;
         const fn = () => { };
 
         const wrapper = shallow(

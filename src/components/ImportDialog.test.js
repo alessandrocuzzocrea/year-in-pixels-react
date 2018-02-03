@@ -4,7 +4,7 @@ import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-import { daysString } from '../../fixtures/moodCalendarMockData';
+import { daysString } from '../../fixtures/calendarMockData';
 
 import ImportDialog from './ImportDialog';
 
