@@ -3,49 +3,49 @@ import PropTypes from "prop-types";
 
 import Month from "./Month";
 
-class MoodGrid extends React.Component {
-  getMonths = () => {
-    // prettier-ignore
-    const monthsInitials = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
-    return monthsInitials.map((initial, i) => {
+const getMonths = (days, activeDay, setActiveDay) => {
+  // prettier-ignore
+  const monthsInitials = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+  return monthsInitials.map((initial, i) => {
+    return (
+      <Month
+        key={i}
+        monthNameInitial={initial}
+        month={i}
+        year={2018}
+        days={days}
+        activeDay={activeDay}
+        setActiveDay={setActiveDay}
+      />
+    );
+  });
+};
+
+const getDays = () => {
+  return Array(31)
+    .fill()
+    .map((_, i) => {
       return (
-        <Month
-          key={i}
-          monthNameInitial={initial}
-          month={i}
-          year={2018}
-          days={this.props.days}
-          activeDay={this.props.activeDay}
-          setActiveDay={this.props.setActiveDay}
-        />
+        <span key={i} className="day">
+          {i + 1}
+        </span>
       );
     });
-  };
+};
 
-  getDays = () => {
-    return Array(31)
-      .fill()
-      .map((_, i) => {
-        return (
-          <span key={i} className="day">
-            {i + 1}
-          </span>
-        );
-      });
-  };
+const MoodGrid = props => {
+  const { days, activeDay, setActiveDay } = props;
 
-  render() {
-    return (
-      <div id="moodGrid" className="grid">
-        <div className="item">
-          <span />
-          <div className="days">{this.getDays()}</div>
-        </div>
-        {this.getMonths()}
+  return (
+    <div id="moodGrid" className="grid">
+      <div className="item">
+        <span />
+        <div className="days">{getDays()}</div>
       </div>
-    );
-  }
-}
+      {getMonths(days, activeDay, setActiveDay)}
+    </div>
+  );
+};
 
 MoodGrid.propTypes = {
   days: PropTypes.object.isRequired,
