@@ -47,7 +47,7 @@ function dayToMonthMemo(day) {
 
 const dayToMonth = dayToMonthMemo();
 
-export {
+module.exports = {
     daysInYear,
     daysInMonth,
     dayIndex,

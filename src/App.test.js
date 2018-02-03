@@ -13,8 +13,8 @@ window.localStorage = global.localStorage;
 import mockdate from 'mockdate';
 
 import consts from './consts';
-import { dayIndex, currDayIndex } from './helpers';
-import { days, daysInitialState, daysString } from '../fixtures/calendarMockData';
+import helpers from './helpers';
+import calendarMockData from '../fixtures/calendarMockData';
 
 describe('<App />', () => {
 
@@ -28,20 +28,20 @@ describe('<App />', () => {
 
     it('days are correctly initialized', () => {
         const wrapper = shallow(<App />);
-        expect(wrapper.state().days).toEqual(daysInitialState);
+        expect(wrapper.state().days).toEqual(calendarMockData.daysInitialState);
     });
 
     it('starts with current date as active day', () => {
         mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
-        expect(wrapper.state().activeMoodDay).toEqual(currDayIndex());
+        expect(wrapper.state().activeMoodDay).toEqual(helpers.currDayIndex());
     });
 
     it('changes active day', () => {
         mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         const initialActiveMoodDay = wrapper.state().activeMoodDay;
-        const newActiveMoodDay = dayIndex(2018, 0, 2);
+        const newActiveMoodDay = helpers.dayIndex(2018, 0, 2);
         wrapper.instance().changeActiveMoodDay(newActiveMoodDay);
         expect(wrapper.state().activeMoodDay).toEqual(newActiveMoodDay);
     });
@@ -132,14 +132,14 @@ describe('<App />', () => {
 
         it('saves data to localStorage', () => {
             const wrapper = shallow(<App />);
-            wrapper.setState({ days: days });
-            expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(days);
+            wrapper.setState({ days: calendarMockData.days });
+            expect(JSON.parse(window.localStorage.getItem('moodCalendar'))).toEqual(calendarMockData.days);
         });
 
         it('load data from localStorage', () => {
-            window.localStorage.setItem('moodCalendar', JSON.stringify(days));
+            window.localStorage.setItem('moodCalendar', JSON.stringify(calendarMockData.days));
             const wrapper = shallow(<App />);
-            expect(wrapper.state().days).toEqual(days);
+            expect(wrapper.state().days).toEqual(calendarMockData.days);
         });
 
         it('loadState must return null if JSON.parse throw an error', () => {
@@ -202,10 +202,10 @@ describe('<App />', () => {
 
         it('clears data', () => {
             const wrapper = shallow(<App />);
-            wrapper.setState({ days: days });
-            expect(wrapper.state().days).not.toEqual(daysInitialState);
+            wrapper.setState({ days: calendarMockData.days });
+            expect(wrapper.state().days).not.toEqual(calendarMockData.daysInitialState);
             wrapper.instance().clearData();
-            expect(wrapper.state().days).toEqual(daysInitialState);
+            expect(wrapper.state().days).toEqual(calendarMockData.daysInitialState);
         });
 
         it('asks for confirmation before clearing the data', () => {
@@ -223,7 +223,7 @@ describe('<App />', () => {
 
         it('validate correct import string', () => {
             const wrapper = shallow(<App />);
-            expect(wrapper.instance().isImportValid(daysString)).toEqual(true);
+            expect(wrapper.instance().isImportValid(calendarMockData.daysString)).toEqual(true);
         });
 
         it('does not validate null input', () => {
@@ -241,7 +241,7 @@ describe('<App />', () => {
         it('does not validate input that contains any characters except 0123456', () => {
 
             const wrapper = shallow(<App />);
-            const invalidDaysString = daysString.replace('3', 'z');
+            const invalidDaysString = calendarMockData.daysString.replace('3', 'z');
             expect(wrapper.instance().isImportValid(invalidDaysString)).toEqual(false);
         });
     });
@@ -252,7 +252,7 @@ describe('<App />', () => {
             const wrapper = shallow(<App />);
 
             const mockIsImportValid = jest.spyOn(wrapper.instance(), 'isImportValid');
-            wrapper.instance().importData(daysString);
+            wrapper.instance().importData(calendarMockData.daysString);
             expect(mockIsImportValid).toHaveBeenCalled();
             mockIsImportValid.mockRestore();
         });
@@ -261,7 +261,7 @@ describe('<App />', () => {
             const confirmSpy = jest.spyOn(global, 'confirm');
             const wrapper = shallow(<App />);
 
-            wrapper.instance().importData(daysString);
+            wrapper.instance().importData(calendarMockData.daysString);
             expect(confirmSpy).toHaveBeenCalledWith(consts.clearDataMsg);
 
             confirmSpy.mockRestore();
@@ -271,10 +271,10 @@ describe('<App />', () => {
             const wrapper = shallow(<App />);
             const confirmSpy = jest.spyOn(global, 'confirm').mockReturnValue(true);
 
-            expect(wrapper.state().days).not.toEqual(days);
+            expect(wrapper.state().days).not.toEqual(calendarMockData.days);
 
-            wrapper.instance().importData(daysString);
-            expect(wrapper.state().days).toEqual(days);
+            wrapper.instance().importData(calendarMockData.daysString);
+            expect(wrapper.state().days).toEqual(calendarMockData.days);
 
             confirmSpy.mockRestore();
         });
@@ -285,9 +285,9 @@ describe('<App />', () => {
             const confirmSpy = jest.spyOn(global, 'confirm').mockReturnValue(true);
             const closeDialogSpy = jest.spyOn(wrapper.instance(), 'closeDialog');
 
-            expect(wrapper.state().days).not.toEqual(days);
+            expect(wrapper.state().days).not.toEqual(calendarMockData.days);
 
-            wrapper.instance().importData(daysString);
+            wrapper.instance().importData(calendarMockData.daysString);
             expect(closeDialogSpy).toHaveBeenCalled();
 
             confirmSpy.mockRestore();
@@ -307,13 +307,13 @@ describe('<App />', () => {
 
         it('does not change the state import was unsuccessful', () => {
             const wrapper = shallow(<App />);
-            wrapper.setState({ days });
-            expect(wrapper.state().days).not.toEqual(daysInitialState);
+            wrapper.setState({ days: calendarMockData.days });
+            expect(wrapper.state().days).not.toEqual(calendarMockData.daysInitialState);
 
             const alertSpy = jest.spyOn(global, 'alert').mockReturnValue(true);
-            wrapper.instance().importData(daysString);
+            wrapper.instance().importData(calendarMockData.daysString);
 
-            expect(wrapper.state().days).toEqual(days);
+            expect(wrapper.state().days).toEqual(calendarMockData.days);
 
             alertSpy.mockRestore();
         });
