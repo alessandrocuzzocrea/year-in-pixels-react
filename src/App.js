@@ -1,21 +1,20 @@
-import React from 'react';
-import { Transition } from 'react-transition-group';
+import React from "react";
+import { Transition } from "react-transition-group";
 
-import consts from './consts';
-import { daysInYear, currDayIndex, currYear } from './helpers';
+import consts from "./consts";
+import { daysInYear, currDayIndex, currYear } from "./helpers";
 
-import Pixels from './components/Pixels';
-import MoodGrid from './components/MoodGrid';
-import Interface from './components/Interface';
-import ImportDialog from './components/ImportDialog';
-import ExportDialog from './components/ExportDialog';
-import AboutDialog from './components/AboutDialog';
+import Pixels from "./components/Pixels";
+import MoodGrid from "./components/MoodGrid";
+import Interface from "./components/Interface";
+import ImportDialog from "./components/ImportDialog";
+import ExportDialog from "./components/ExportDialog";
+import AboutDialog from "./components/AboutDialog";
 
-import './reset.css';
-import './style.css';
+import "./reset.css";
+import "./style.css";
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -29,35 +28,32 @@ class App extends React.Component {
         .forEach((v, i) => {
           days[i] = v;
         });
-    };
+    }
 
     this.state = {
       activeMoodDay: currDayIndex(),
       days: days,
-      openDialog: null,
-    }
+      openDialog: null
+    };
   }
 
   componentDidUpdate(prevProps, prevState) {
     this.saveState(this.state.days);
   }
 
-  changeActiveMoodDay = (activeMoodDay) => {
-
+  changeActiveMoodDay = activeMoodDay => {
     this.setState({ activeMoodDay });
-
   };
 
-  changeDateMoodValue = (value) => {
-
-    this.setState((prevState) => {
+  changeDateMoodValue = value => {
+    this.setState(prevState => {
       const days = { ...prevState.days };
       days[prevState.activeMoodDay] = value;
       return { days };
     });
   };
 
-  openDialog = (openDialog) => {
+  openDialog = openDialog => {
     this.setState({ openDialog });
   };
 
@@ -73,7 +69,6 @@ class App extends React.Component {
   };
 
   fillDemoData = () => {
-
     const currYear = new Date().getFullYear();
     const days = {};
     Array(daysInYear(currYear))
@@ -83,7 +78,7 @@ class App extends React.Component {
       });
 
     this.setState({ days });
-  }
+  };
 
   askClearDataConfirm = () => {
     if (window.confirm(consts.clearDataMsg)) {
@@ -92,7 +87,6 @@ class App extends React.Component {
   };
 
   clearData = () => {
-
     const currYear = new Date().getFullYear();
     const days = {};
     Array(daysInYear(currYear))
@@ -102,21 +96,18 @@ class App extends React.Component {
       });
 
     this.setState({ days });
-  }
+  };
 
-  isImportValid = (data) => {
-
+  isImportValid = data => {
     if (!data) return false;
     if (data.length !== daysInYear(currYear())) return false;
     if (data.match(/[^0-5]/)) return false;
 
     return true;
-  }
+  };
 
-  importData = (data) => {
-
+  importData = data => {
     if (this.isImportValid(data)) {
-
       const days = {};
       Array(daysInYear(currYear()))
         .fill(0)
@@ -130,18 +121,17 @@ class App extends React.Component {
 
         // window.alert('The import was successful!');
       }
-
     } else {
       window.alert(consts.importErrorMsg);
     }
-  }
+  };
 
-  saveState = (days) => {
-    localStorage.setItem('moodCalendar', JSON.stringify(days));
-  }
+  saveState = days => {
+    localStorage.setItem("moodCalendar", JSON.stringify(days));
+  };
 
   loadState = () => {
-    const days = localStorage.getItem('moodCalendar');
+    const days = localStorage.getItem("moodCalendar");
     if (days) {
       try {
         return JSON.parse(days);
@@ -149,17 +139,16 @@ class App extends React.Component {
         return null;
       }
     }
-  }
+  };
 
   render() {
-
     const { enableAnimations } = this.props;
 
     const transitionStyles = {
       entering: { opacity: 0, display: "block" },
       entered: { opacity: 1, display: "block" },
       exiting: { opacity: 0, display: "block" },
-      exited: { opacity: 0, display: "none" },
+      exited: { opacity: 0, display: "none" }
     };
 
     const duration = 100;
@@ -180,7 +169,11 @@ class App extends React.Component {
         </div>
         <div className="container">
           <div className="column">
-            <MoodGrid days={this.state.days} activeDay={this.state.activeMoodDay} setActiveDay={this.changeActiveMoodDay} />
+            <MoodGrid
+              days={this.state.days}
+              activeDay={this.state.activeMoodDay}
+              setActiveDay={this.changeActiveMoodDay}
+            />
           </div>
           <div className="column">
             <Interface
@@ -203,12 +196,13 @@ class App extends React.Component {
             enter={enableAnimations}
             exit={enableAnimations}
           >
-            {(state) => (
+            {state => (
               <ImportDialog
                 importData={this.importData}
                 closeDialog={this.closeDialog}
                 style={{ ...transitionStyles[state] }}
-              />)}
+              />
+            )}
           </Transition>
           <Transition
             in={this.state.openDialog === consts.dialogs.export}
@@ -218,12 +212,13 @@ class App extends React.Component {
             enter={enableAnimations}
             exit={enableAnimations}
           >
-            {(state) => (
+            {state => (
               <ExportDialog
                 days={this.state.days}
                 closeDialog={this.closeDialog}
                 style={{ ...transitionStyles[state] }}
-              />)}
+              />
+            )}
           </Transition>
           <Transition
             in={this.state.openDialog === consts.dialogs.about}
@@ -233,12 +228,14 @@ class App extends React.Component {
             enter={enableAnimations}
             exit={enableAnimations}
           >
-            {(state) => (
+            {state => (
               <AboutDialog
                 closeDialog={this.closeDialog}
                 style={{
                   ...transitionStyles[state]
-                }} />)}
+                }}
+              />
+            )}
           </Transition>
         </div>
       </div>
