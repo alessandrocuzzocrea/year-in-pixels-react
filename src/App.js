@@ -86,7 +86,7 @@ class App extends React.Component {
   }
 
   askClearDataConfirm = () => {
-    if (window.confirm("Careful, this will clear all the current data. Are you sure?")) {
+    if (window.confirm(consts.clearDataMsg)) {
       this.clearData();
     }
   };
