@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import MoodSelector from './MoodSelector';
-import Chart from './Chart';
-import QuoteOfTheDay from './QuoteOfTheDay';
+import MoodSelector from "./MoodSelector";
+import Chart from "./Chart";
+import QuoteOfTheDay from "./QuoteOfTheDay";
 
-export const getMessage = (value) => {
-
-    switch (value) {
+export const getMessage = value => {
+  // prettier-ignore
+  switch (value) {
         case 0: return <div id="message">You have not set a mood today.</div>;
         case 1: return <div id="message">Your day was <u>tough</u>.</div>;
         case 2: return <div id="message">Your day was <u>difficult</u>.</div>;
@@ -19,45 +19,47 @@ export const getMessage = (value) => {
 };
 
 const getLink = (klass, onClickFn, text) => {
-    return (
-        <li>
-            <a href="#" data-menu={klass} onClick={() => onClickFn(klass)}> {text}</a>
-        </li>
-    );
+  return (
+    <li>
+      {/* prettier-ignore */}
+      <a href="#" data-menu={klass} onClick={() => onClickFn(klass)}> {text}</a>
+    </li>
+  );
 };
 
-const Interface = (props) => {
-
-    return (
-        <div className="interface">
-            <h2>Hello there, <br />how are you feeling today?</h2>
-            <MoodSelector
-                activeMoodDayValue={props.activeMoodDayValue}
-                changeDateMoodValue={props.changeDateMoodValue}
-            />
-            {getMessage(props.activeMoodDayValue)}
-            <Chart days={props.days} />
-            <QuoteOfTheDay />
-            <div id="footer">
-                <ul className="menu">
-                    {getLink("import", props.openDialog, "Import")}
-                    {getLink("export", props.openDialog, "Export")}
-                    {getLink("demo", props.askDemoDataConfirm, "Demo data")}
-                    {getLink("clear", props.askClearDataConfirm, "Clear data")}
-                    {getLink("about", props.openDialog, "About")}
-                </ul>
-            </div>
-        </div>
-    );
-}
+const Interface = props => {
+  return (
+    <div className="interface">
+      <h2>
+        Hello there, <br />how are you feeling today?
+      </h2>
+      <MoodSelector
+        activeMoodDayValue={props.activeMoodDayValue}
+        changeDateMoodValue={props.changeDateMoodValue}
+      />
+      {getMessage(props.activeMoodDayValue)}
+      <Chart days={props.days} />
+      <QuoteOfTheDay />
+      <div id="footer">
+        <ul className="menu">
+          {getLink("import", props.openDialog, "Import")}
+          {getLink("export", props.openDialog, "Export")}
+          {getLink("demo", props.askDemoDataConfirm, "Demo data")}
+          {getLink("clear", props.askClearDataConfirm, "Clear data")}
+          {getLink("about", props.openDialog, "About")}
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 Interface.propTypes = {
-    days: PropTypes.object.isRequired,
-    changeDateMoodValue: PropTypes.func.isRequired,
-    activeMoodDayValue: PropTypes.number.isRequired,
+  days: PropTypes.object.isRequired,
+  changeDateMoodValue: PropTypes.func.isRequired,
+  activeMoodDayValue: PropTypes.number.isRequired,
 
-    openDialog: PropTypes.func.isRequired,
-    closeDialog: PropTypes.func.isRequired,
+  openDialog: PropTypes.func.isRequired,
+  closeDialog: PropTypes.func.isRequired
 };
 
 export default Interface;
