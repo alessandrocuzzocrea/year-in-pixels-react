@@ -1,33 +1,35 @@
 const qodResponseMock = {
-  "success": {
-    "total": 1
+  success: {
+    total: 1
   },
-  "contents": {
-    "quotes": [
+  contents: {
+    quotes: [
       {
-        "quote": "The man who removes a mountain begins by carrying away small stones....",
-        "length": "71",
-        "author": "Chinese Proverb",
-        "tags": [
-          "inspire",
-          "moving-mountains"
-        ],
-        "category": "inspire",
-        "date": "2018-01-27",
-        "permalink": "https://theysaidso.com/quote/h7Gyu282q_vzBWvn2zdmtweF/chinese-proverb-the-man-who-removes-a-mountain-begins-by-carrying-away-small-sto",
-        "title": "Inspiring Quote of the day",
-        "background": "https://theysaidso.com/img/bgs/man_on_the_mountain.jpg",
-        "id": "h7Gyu282q_vzBWvn2zdmtweF"
+        quote:
+          "The man who removes a mountain begins by carrying away small stones....",
+        length: "71",
+        author: "Chinese Proverb",
+        tags: ["inspire", "moving-mountains"],
+        category: "inspire",
+        date: "2018-01-27",
+        permalink:
+          "https://theysaidso.com/quote/h7Gyu282q_vzBWvn2zdmtweF/chinese-proverb-the-man-who-removes-a-mountain-begins-by-carrying-away-small-sto",
+        title: "Inspiring Quote of the day",
+        background: "https://theysaidso.com/img/bgs/man_on_the_mountain.jpg",
+        id: "h7Gyu282q_vzBWvn2zdmtweF"
       }
     ],
-    "copyright": "2017-19 theysaidso.com"
+    copyright: "2017-19 theysaidso.com"
   }
-}
-const quoteMock = { quote: "The man who removes a mountain begins by carrying away small stones....", author: "Chinese Proverb" };
-const quoteErrorMock = { author: "quotes.rest", quote: "GET https://quotes.rest/qod 429 (Too Many Requests)" };
-
-export {
-  qodResponseMock,
-  quoteMock,
-  quoteErrorMock
 };
+const quoteMock = {
+  quote:
+    "The man who removes a mountain begins by carrying away small stones....",
+  author: "Chinese Proverb"
+};
+const quoteErrorMock = {
+  author: "quotes.rest",
+  quote: "GET https://quotes.rest/qod 429 (Too Many Requests)"
+};
+
+export { qodResponseMock, quoteMock, quoteErrorMock };
