@@ -36,7 +36,6 @@ function dayToMonthMemo(day) {
     }
     if (day in cache) return cache[day];
     const nextYear = new Date(year + 1, 0, 1);
-    let i = 0;
     for (
       let d = new Date(year, 0, 1);
       d < nextYear;
@@ -46,7 +45,6 @@ function dayToMonthMemo(day) {
         cache[day] = d.getMonth();
         return cache[day];
       }
-      i++;
     }
   };
 }
