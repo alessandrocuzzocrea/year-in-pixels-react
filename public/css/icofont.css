@@ -1,0 +1,174 @@
+/**
+ * @package IcoFont by ThemeHunt - https://themehunt.com
+ * @version 1.0.0 Beta
+ * @author IcoFont http://icofont.com
+ * @copyright Copyright (c) 2018 IcoFont
+ * @license - http://icofont.com/license/
+*/
+
+@font-face {
+    font-family: 'icofont';
+    src: url('../fonts/icofont.eot?v=1.0.0-beta');
+    src: url('../fonts/icofont.eot?v=1.0.0-beta#iefix') format('embedded-opentype'),
+    url('../fonts/icofont.ttf?v=1.0.0-beta') format('truetype'),
+    url('../fonts/icofont.woff?v=1.0.0-beta') format('woff'),
+    url('../fonts/icofont.svg?v=1.0.0-beta#icofont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icofont {
+    font-family: 'IcoFont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icofont-emo-angry:before {
+	content: "\ebaf";
+}
+.icofont-emo-astonished:before {
+	content: "\ebb0";
+}
+.icofont-emo-confounded:before {
+	content: "\ebb1";
+}
+.icofont-emo-confused:before {
+	content: "\ebb2";
+}
+.icofont-emo-crying:before {
+	content: "\ebb3";
+}
+.icofont-emo-dizzy:before {
+	content: "\ebb4";
+}
+.icofont-emo-expressionless:before {
+	content: "\ebb5";
+}
+.icofont-emo-heart-eyes:before {
+	content: "\ebb6";
+}
+.icofont-emo-laughing:before {
+	content: "\ebb7";
+}
+.icofont-emo-nerd-smile:before {
+	content: "\ebb8";
+}
+.icofont-emo-open-mouth:before {
+	content: "\ebb9";
+}
+.icofont-emo-rage:before {
+	content: "\ebba";
+}
+.icofont-emo-rolling-eyes:before {
+	content: "\ebbb";
+}
+.icofont-emo-sad:before {
+	content: "\ebbc";
+}
+.icofont-emo-simple-smile:before {
+	content: "\ebbd";
+}
+.icofont-emo-slightly-smile:before {
+	content: "\ebbe";
+}
+.icofont-emo-smirk:before {
+	content: "\ebbf";
+}
+.icofont-emo-stuck-out-tongue:before {
+	content: "\ebc0";
+}
+.icofont-emo-wink-smile:before {
+	content: "\ebc1";
+}
+.icofont-emo-worried:before {
+	content: "\ebc2";
+}
+
+/*Font size*/
+.icofont-lg {
+    font-size: 1.33333333em;
+    line-height: .75em;
+    vertical-align: -15%
+}
+
+.icofont-2x {
+    font-size: 2em
+}
+
+.icofont-3x {
+    font-size: 3em
+}
+
+.icofont-4x {
+    font-size: 4em
+}
+
+.icofont-5x {
+    font-size: 5em
+}
+
+.icofont-fw {
+    display: inline-block;
+    width: 1.28571429em;
+    text-align: center
+}
+
+/*Fixed Width Icons*/
+.icofont-fw {
+    width: 1.28571429em;
+    text-align: center;
+}
+
+/*Custom list icons*/
+.icofont-ul {
+    padding-left: 0;
+    margin-left: 2.14285714em;
+    list-style-type: none;
+}
+.icofont-ul>li {
+    position: relative;
+}
+.icofont-li {
+    position: absolute;
+    left: -2.14285714em;
+    width: 2.14285714em;
+    top: .14285714em;
+    text-align: center;
+}
+
+/*Animation*/
+.icofont-rotate {
+    display: inline-block;
+    -webkit-animation: icofont-rotate 2s infinite linear;
+    animation: icofont-rotate 2s infinite linear
+}
+
+@-webkit-keyframes icofont-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}
+
+@keyframes icofont-rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg)
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg)
+    }
+}
