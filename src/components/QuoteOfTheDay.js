@@ -2,7 +2,7 @@ import React from "react";
 
 import { QuotesRESTAPIUrl } from "../consts";
 
-class QuoteOfTheDay extends React.Component {
+class QuoteOfTheDay extends React.PureComponent {
   constructor() {
     super();
 

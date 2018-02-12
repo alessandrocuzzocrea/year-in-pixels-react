@@ -1,23 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const MoodDay = props => {
-  const { day, activeDay, dataMood } = props;
-  return (
-    <button
-      className={day === activeDay ? "active" : null}
-      data-mood={dataMood}
-      onClick={() => {
-        props.setActiveDay(props.day);
-      }}
-    />
-  );
-};
+class MoodDay extends React.PureComponent {
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return this.props.dataMood !== nextProps.dataMood;
+  // }
+
+  render() {
+    const { day, dataMood, isActive, setActiveDay } = this.props;
+    return (
+      <button
+        className={isActive ? "active" : null}
+        data-mood={dataMood}
+        onClick={() => {
+          setActiveDay(day);
+        }}
+      />
+    );
+  }
+}
 
 MoodDay.propTypes = {
   day: PropTypes.number.isRequired,
-  activeDay: PropTypes.number.isRequired,
   dataMood: PropTypes.number.isRequired,
+  isActive: PropTypes.bool.isRequired,
   setActiveDay: PropTypes.func.isRequired
 };
 

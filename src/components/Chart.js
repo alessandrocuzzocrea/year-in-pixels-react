@@ -59,21 +59,22 @@ const options = {
 
 const type = "Line";
 
-const Chart = props => {
-  const { days } = props;
+class Chart extends React.PureComponent {
+  render() {
+    const { days } = this.props;
 
-  const data = {
-    labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
-    series: [getMonthMoodAvgArr(days)]
-  };
+    const data = {
+      labels: ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"],
+      series: [getMonthMoodAvgArr(days)]
+    };
 
-  return (
-    <div id="chart">
-      <ChartistGraph data={data} options={options} type={type} />
-    </div>
-  );
-};
-
+    return (
+      <div id="chart">
+        <ChartistGraph data={data} options={options} type={type} />
+      </div>
+    );
+  }
+}
 Chart.propTypes = {
   days: PropTypes.object.isRequired
 };

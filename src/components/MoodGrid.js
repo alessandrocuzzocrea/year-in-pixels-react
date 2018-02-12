@@ -1,22 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Month from "./Month";
+import { daysInMonth, dayIndex } from "../helpers";
+import MoodDay from "./MoodDay";
 
 const getMonths = (days, activeDay, setActiveDay) => {
   // prettier-ignore
   const monthsInitials = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
   return monthsInitials.map((initial, i) => {
+    const year = 2018;
+    const month = i;
+    const noOfDaysInMonth = daysInMonth(year, month);
     return (
-      <Month
-        key={i}
-        monthNameInitial={initial}
-        month={i}
-        year={2018}
-        days={days}
-        activeDay={activeDay}
-        setActiveDay={setActiveDay}
-      />
+      <div key={i} data-month={initial} className="item month">
+        <span>{initial}</span>
+        {Array(noOfDaysInMonth)
+          .fill()
+          .map((_, i) => {
+            const date = new Date(year, month, i + 1);
+            const day = dayIndex(
+              date.getFullYear(),
+              date.getMonth(),
+              date.getDate()
+            );
+            const dataMood = days[day] || 0;
+            const isActive = day === activeDay;
+            return (
+              <MoodDay
+                key={i}
+                day={day}
+                dataMood={dataMood}
+                isActive={isActive}
+                setActiveDay={setActiveDay}
+              />
+            );
+          })}
+      </div>
     );
   });
 };
@@ -33,20 +52,21 @@ const getDays = () => {
     });
 };
 
-const MoodGrid = props => {
-  const { days, activeDay, setActiveDay } = props;
+class MoodGrid extends React.Component {
+  render() {
+    const { days, activeDay, setActiveDay } = this.props;
 
-  return (
-    <div id="moodGrid" className="grid">
-      <div className="item">
-        <span />
-        <div className="days">{getDays()}</div>
+    return (
+      <div id="moodGrid" className="grid">
+        <div className="item">
+          <span />
+          <div className="days">{getDays()}</div>
+        </div>
+        {getMonths(days, activeDay, setActiveDay)}
       </div>
-      {getMonths(days, activeDay, setActiveDay)}
-    </div>
-  );
-};
-
+    );
+  }
+}
 MoodGrid.propTypes = {
   days: PropTypes.object.isRequired,
   activeDay: PropTypes.number.isRequired,

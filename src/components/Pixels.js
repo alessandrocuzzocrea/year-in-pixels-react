@@ -1,6 +1,6 @@
 import React from "react";
 
-class Pixels extends React.Component {
+class Pixels extends React.PureComponent {
   constructor() {
     super();
 
