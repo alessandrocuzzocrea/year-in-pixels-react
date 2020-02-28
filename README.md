@@ -11,6 +11,8 @@ https://alessandrocuzzocrea.github.io/year-in-pixels-react/
 
 ## License
 
+The MIT License (MIT). Copyright (c) 2018 Alejandro AR. Copyright (c) 2018 Alessandro Cuzzocrea
+
 IcoFont is an open source initiative by [ShapeBootstrap](https://shapebootstrap.net/).
 
 ## Remixed from:
