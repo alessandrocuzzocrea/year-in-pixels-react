@@ -20,6 +20,7 @@ describe('<App />', () => {
 
     beforeEach(() => {
         window.localStorage.clear();
+        mockdate.set(calendarMockData.currentDate);
     });
 
     it('renders without crashing', () => {
@@ -32,13 +33,11 @@ describe('<App />', () => {
     });
 
     it('starts with current date as active day', () => {
-        mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         expect(wrapper.state().activeMoodDay).toEqual(helpers.currDayIndex());
     });
 
     it('changes active day', () => {
-        mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         const initialActiveMoodDay = wrapper.state().activeMoodDay;
         const newActiveMoodDay = helpers.dayIndex(2018, 0, 2);
@@ -47,7 +46,6 @@ describe('<App />', () => {
     });
 
     it('changes active day mood value', () => {
-        mockdate.set('2018/1/1');
         const wrapper = shallow(<App />);
         wrapper.instance().changeDateMoodValue(5);
         const { days, activeMoodDay } = wrapper.state()

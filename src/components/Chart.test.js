@@ -4,8 +4,9 @@ import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-import { days, daysAvg } from '../../fixtures/calendarMockData';
+import { currentDate, days, daysAvg } from '../../fixtures/calendarMockData';
 import { moodOptions } from '../consts';
+import mockdate from 'mockdate';
 
 import Chart, { getMonthMoodAvgArr, labelInterpolation } from './Chart';
 
@@ -17,6 +18,8 @@ describe('<Chart />', () => {
 });
 
 describe('getMonthModdAvg', () => {
+
+    mockdate.set(currentDate);
 
     it('getMonthMoodAvgArr give the expected result', () => {
 

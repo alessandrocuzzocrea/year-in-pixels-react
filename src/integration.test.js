@@ -17,13 +17,14 @@ import mockdate from 'mockdate';
 
 import consts from './consts';
 import { currDayIndex } from './helpers';
-import { days, daysInitialState, daysFillData, daysString } from '../fixtures/calendarMockData';
+import { currentDate, days, daysInitialState, daysFillData, daysString } from '../fixtures/calendarMockData';
 
 beforeAll(() => {
     fetchMock.get(consts.QuotesRESTAPIUrl, qodMockData);
 });
 
 beforeEach(() => {
+    mockdate.set(currentDate);
     window.localStorage.clear();
 });
 

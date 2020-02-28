@@ -1,5 +1,6 @@
 // prettier-ignore
 module.exports = {
+  currentDate: '2018/1/1',
   activeMoodDayValue: 0,
   changeDateMoodValue: 5,
   daysInitialState: { 
