@@ -13,6 +13,6 @@ https://alessandrocuzzocrea.github.io/year-in-pixels-react/
 
 IcoFont is an open source initiative by [ShapeBootstrap](https://shapebootstrap.net/).
 
-#### Remixed from:
+## Remixed from:
 
 [https://glitch.com/~year-in-pixels](https://glitch.com/~year-in-pixels)
