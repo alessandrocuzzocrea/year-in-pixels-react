@@ -5,6 +5,10 @@
 ## What is this?
 Year in Pixels is an experiment I made trying to convert an existing jQuery 
 webpage and converting it to React.
+
+# Try it!
+https://alessandrocuzzocrea.github.io/year-in-pixels-react/
+
 ## License
 
 IcoFont is an open source initiative by [ShapeBootstrap](https://shapebootstrap.net/).
